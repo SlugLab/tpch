@@ -3,7 +3,7 @@ first_arg="$1"
 shift
 echo First argument: "$first_arg"
 echo Remaining arguments: "$@"
-set -m
+# set -m
 mserver5 --dbpath=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5 --set monet_vault_key=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5/.vaultkey &
 echo mserver5 --dbpath=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5 --set monet_vault_key=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5/.vaultkey 
 pid1=$!
@@ -12,6 +12,7 @@ pid1=$!
 #../run_with_memory_monitor.sh',str(args.memory), "mclient", '-tperformance', '-fraw', '-d', db, queryfile
 sleep 2 
 # python3 /home/victoryang00/pmu-tools/ucevent/ucevent.py --interval 100 -o $5-$6.csv --csv out.csv -x , CBO.LLC_VICTIMS.M_STATE CBO.LLC_VICTIMS.MISS CBO.LLC_VICTIMS  &
+perf c2c record -F 60000 -a sleep 1000 &
 pid2=$!
 "$@" &
 pid=$!
@@ -41,9 +42,10 @@ sleep 0.5
 # sleep 0.5
 
     # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15 
-    # ps -aux | grep perf | grep -v grep | awk '{print $2}' | xargs kill -15 
-   
-   sleep 1
+   kill -INT $pid2
+
+   sleep 2
+   perf c2c report -NN -c pid,iaddr --full-symbols --stdio > $5-$6-c2c.txt
 fi
 done
 awk 'BEGIN { maxvsz=0; maxrss=0; count=0; sum=0; sum1=0;} \

@@ -1,0 +1,150 @@
+=================================================
+            Trace Event Information              
+=================================================
+  Total records                     :     103879
+  Locked Load/Store Operations      :        412
+  Load Operations                   :      18060
+  Loads - uncacheable               :          0
+  Loads - IO                        :          0
+  Loads - Miss                      :          0
+  Loads - no mapping                :          5
+  Load Fill Buffer Hit              :       2048
+  Load L1D hit                      :      13573
+  Load L2D hit                      :         29
+  Load LLC hit                      :       1947
+  Load Local HITM                   :          4
+  Load Remote HITM                  :          7
+  Load Remote HIT                   :          3
+  Load Local DRAM                   :        401
+  Load Remote DRAM                  :         57
+  Load MESI State Exclusive         :        455
+  Load MESI State Shared            :          3
+  Load LLC Misses                   :        468
+  Load access blocked by data       :          0
+  Load access blocked by address    :          0
+  LLC Misses to Local DRAM          :       85.7%
+  LLC Misses to Remote DRAM         :       12.2%
+  LLC Misses to Remote cache (HIT)  :        0.6%
+  LLC Misses to Remote cache (HITM) :        1.5%
+  Store Operations                  :      85819
+  Store - uncacheable               :          0
+  Store - no mapping                :          0
+  Store L1D Hit                     :          0
+  Store L1D Miss                    :      85819
+  No Page Map Rejects               :      10522
+  Unable to parse data source       :          0
+
+=================================================
+    Global Shared Cache Line Event Information   
+=================================================
+  Total Shared Cache Lines          :         11
+  Load HITs on shared lines         :         15
+  Fill Buffer Hits on shared lines  :          3
+  L1D hits on shared lines          :          0
+  L2D hits on shared lines          :          0
+  LLC hits on shared lines          :          5
+  Locked Access on shared lines     :          0
+  Blocked Access on shared lines    :          0
+  Store HITs on shared lines        :         19
+  Store L1D hits on shared lines    :          0
+  Total Merged records              :         30
+
+=================================================
+                 c2c details                     
+=================================================
+  Events                            : cpu/mem-loads,ldlat=30/P
+                                    : cpu/mem-stores/P
+                                    : dummy:uh
+  Cachelines sort on                : Total HITMs
+  Cacheline data grouping           : offset,pid,iaddr
+
+=================================================
+           Shared Data Cache Line Table          
+=================================================
+#
+#        ----------- Cacheline ----------      Tot  ------- Load Hitm -------    Total    Total    Total  ---- Stores ----  ----- Core Load Hit -----  - LLC Load Hit --  - RMT Load Hit --  --- Load Dram ----
+# Index             Address  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads   Stores    L1Hit   L1Miss       FB       L1       L2    LclHit  LclHitm    RmtHit  RmtHitm       Lcl       Rmt
+# .....  ..................  ....  ......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  ........  .......  ........  .......  ........  ........
+#
+      0           0x5d66c00     0       2    9.09%        1        1        0        2        1        1        0        1        0        0        0         0        1         0        0         0         0
+      1           0x5d66c40     0       2    9.09%        1        1        0        4        2        2        0        2        1        0        0         0        1         0        0         0         0
+      2      0x7f6594035b00     0       1    9.09%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+      3      0x55be9d835600   0-1       2    9.09%        1        0        1        3        3        0        0        0        0        0        0         1        0         0        1         0         1
+      4      0x7f97078a13c0     0       1    9.09%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+      5      0x7ffd79447800     0       3    9.09%        1        0        1        6        2        4        0        4        0        0        0         0        0         0        1         0         1
+      6      0x7ffd79447940     0       2    9.09%        1        1        0        2        1        1        0        1        0        0        0         0        1         0        0         0         0
+      7      0x7ffd79447980     0       3    9.09%        1        0        1        4        2        2        0        2        0        0        0         0        0         0        1         0         1
+      8      0x7ffd79447a80     0       2    9.09%        1        0        1        3        3        0        0        0        1        0        0         0        0         0        1         0         1
+      9      0x7ffd79447b80     0       7    9.09%        1        0        1       12        3        9        0        9        1        0        0         0        0         0        1         0         1
+     10      0x7fa9b2e31dc0     1       1    9.09%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+
+=================================================
+      Shared Cache Line Distribution Pareto      
+=================================================
+#
+#        ----- HITM -----  -- Store Refs --  --------- Data address ---------                               ---------- cycles ----------    Total       cpu                                                                                                                                       Shared                       
+#   Num  RmtHitm  LclHitm   L1 Hit  L1 Miss              Offset  Node  PA cnt      Pid        Code address  rmt hitm  lcl hitm      load  records       cnt                                                                                                                               Symbol  Object      Source:Line  Node{cpu list}
+# .....  .......  .......  .......  .......  ..................  ....  ......  .......  ..................  ........  ........  ........  .......  ........  ...................................................................................................................................  ....  ...............  ....
+#
+  -------------------------------------------------------------
+      0        0        1        0        1           0x5d66c00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x10     0       1  3305507           0x155593e         0       332         0        1         1  [.] worker                                                                                                                           node  threadpool.c:87   0{7}
+           0.00%    0.00%    0.00%  100.00%                0x30     0       1  3305507            0xbca502         0         0         0        1         1  [.] node::(anonymous namespace)::CompressionStream<node::(anonymous namespace)::ZlibContext>::AdjustAmountOfExternalAllocatedMemory  node  node_zlib.cc:0    0{3}
+
+  -------------------------------------------------------------
+      1        0        1        0        2           0x5d66c40
+  -------------------------------------------------------------
+           0.00%    0.00%    0.00%  100.00%                0x14     0       1  3305507      0x7f65c2530b0c         0         0         0        2         2  [.] pthread_mutex_unlock@@GLIBC_2.2.5                       libc.so.6  pthread_mutex_unlock.c:65   0{5,19}
+           0.00%  100.00%    0.00%    0.00%                0x34     0       1  3305507            0xbca8e4         0        63         0        1         1  [.] node::(anonymous namespace)::ZlibContext::GetErrorInfo  node       node_zlib.cc:0              0{3}
+
+  -------------------------------------------------------------
+      2        0        1        0        0      0x7f6594035b00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x2     0       1  3305507           0x15415b4         0       111         0        1         1  [.] insert_string_optimized  node  deflate.c:0   0{6}
+
+  -------------------------------------------------------------
+      3        1        0        0        0      0x55be9d835600
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x0     1       1  3584594      0x55be9b9b0088       163         0         0        2         1  [.] discard_unwind_frame  bash              ??:0          0{21}
+
+  -------------------------------------------------------------
+      4        1        0        0        0      0x7f97078a13c0
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x30     0       1  3584973      0x557c291dde67       359         0         0        2         1  [.] 0x00000000001e4e67  git               git[1e4e67]   1{24}
+
+  -------------------------------------------------------------
+      5        1        0        0        4      0x7ffd79447800
+  -------------------------------------------------------------
+           0.00%    0.00%    0.00%  100.00%                 0x8     0       1  3584973      0x557c291ddfc9         0         0         0        4         1  [.] 0x00000000001e4fc9  git               git[1e4fc9]   0{20}
+         100.00%    0.00%    0.00%    0.00%                0x38     0       1  3584973      0x557c291dde63       192         0         0        2         1  [.] 0x00000000001e4e63  git               git[1e4e63]   1{27}
+
+  -------------------------------------------------------------
+      6        0        1        0        1      0x7ffd79447940
+  -------------------------------------------------------------
+           0.00%    0.00%    0.00%  100.00%                 0x8     0       1  3584973      0x557c291ddfc9         0         0         0        1         1  [.] 0x00000000001e4fc9  git               git[1e4fc9]   1{10}
+           0.00%  100.00%    0.00%    0.00%                0x38     0       1  3584973      0x557c291dde63         0       160         0        1         1  [.] 0x00000000001e4e63  git               git[1e4e63]   1{24}
+
+  -------------------------------------------------------------
+      7        1        0        0        2      0x7ffd79447980
+  -------------------------------------------------------------
+           0.00%    0.00%    0.00%   50.00%                0x10     0       1  3584973      0x7f9708063676         0         0         0        1         1  [.] _IO_old_init        libc.so.6         genops.c:532   0{1}
+           0.00%    0.00%    0.00%   50.00%                0x28     0       1  3584973      0x557c291466fe         0         0         0        1         1  [.] 0x000000000014d6fe  git               git[14d6fe]    0{1}
+         100.00%    0.00%    0.00%    0.00%                0x38     0       1  3584973      0x557c291dde63       195         0         0        2         1  [.] 0x00000000001e4e63  git               git[1e4e63]    0{22}
+
+  -------------------------------------------------------------
+      8        1        0        0        0      0x7ffd79447a80
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x38     0       1  3584973      0x557c291dde63       196         0         0        2         1  [.] 0x00000000001e4e63  git               git[1e4e63]   1{9}
+
+  -------------------------------------------------------------
+      9        1        0        0        9      0x7ffd79447b80
+  -------------------------------------------------------------
+           0.00%    0.00%    0.00%   44.44%                0x14     0       1  3584973      0x557c291e4e6e         0         0         0        4         1  [.] 0x00000000001ebe6e  git               git[1ebe6e]   0{1}
+           0.00%    0.00%    0.00%   55.56%                0x20     0       1  3584973      0x557c291e4f53         0         0         0        5         1  [.] 0x00000000001ebf53  git               git[1ebf53]   0{1}
+         100.00%    0.00%    0.00%    0.00%                0x38     0       1  3584973      0x557c291dde63       367         0         0        2         1  [.] 0x00000000001e4e63  git               git[1e4e63]   1{29}
+
+  -------------------------------------------------------------
+     10        1        0        0        0      0x7fa9b2e31dc0
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8     1       1  3584747      0x7fa9b2cbba89       112         0         0        2         1  [.] _int_malloc  libc.so.6  malloc.c:3906   0{5}

@@ -1,0 +1,109 @@
+=================================================
+            Trace Event Information              
+=================================================
+  Total records                     :       4452
+  Locked Load/Store Operations      :         53
+  Load Operations                   :        636
+  Loads - uncacheable               :          0
+  Loads - IO                        :          0
+  Loads - Miss                      :          0
+  Loads - no mapping                :          0
+  Load Fill Buffer Hit              :        119
+  Load L1D hit                      :        371
+  Load L2D hit                      :          5
+  Load LLC hit                      :        126
+  Load Local HITM                   :          0
+  Load Remote HITM                  :          5
+  Load Remote HIT                   :          1
+  Load Local DRAM                   :          6
+  Load Remote DRAM                  :          9
+  Load MESI State Exclusive         :         14
+  Load MESI State Shared            :          1
+  Load LLC Misses                   :         21
+  Load access blocked by data       :          0
+  Load access blocked by address    :          0
+  LLC Misses to Local DRAM          :       28.6%
+  LLC Misses to Remote DRAM         :       42.9%
+  LLC Misses to Remote cache (HIT)  :        4.8%
+  LLC Misses to Remote cache (HITM) :       23.8%
+  Store Operations                  :       3816
+  Store - uncacheable               :          0
+  Store - no mapping                :          0
+  Store L1D Hit                     :          0
+  Store L1D Miss                    :       3816
+  No Page Map Rejects               :       1900
+  Unable to parse data source       :          0
+
+=================================================
+    Global Shared Cache Line Event Information   
+=================================================
+  Total Shared Cache Lines          :          5
+  Load HITs on shared lines         :          6
+  Fill Buffer Hits on shared lines  :          1
+  L1D hits on shared lines          :          0
+  L2D hits on shared lines          :          0
+  LLC hits on shared lines          :          0
+  Locked Access on shared lines     :          0
+  Blocked Access on shared lines    :          0
+  Store HITs on shared lines        :          3
+  Store L1D hits on shared lines    :          0
+  Total Merged records              :          8
+
+=================================================
+                 c2c details                     
+=================================================
+  Events                            : cpu/mem-loads,ldlat=30/P
+                                    : cpu/mem-stores/P
+                                    : dummy:uh
+  Cachelines sort on                : Total HITMs
+  Cacheline data grouping           : offset,pid,iaddr
+
+=================================================
+           Shared Data Cache Line Table          
+=================================================
+#
+#        ----------- Cacheline ----------      Tot  ------- Load Hitm -------    Total    Total    Total  ---- Stores ----  ----- Core Load Hit -----  - LLC Load Hit --  - RMT Load Hit --  --- Load Dram ----
+# Index             Address  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads   Stores    L1Hit   L1Miss       FB       L1       L2    LclHit  LclHitm    RmtHit  RmtHitm       Lcl       Rmt
+# .....  ..................  ....  ......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  ........  .......  ........  .......  ........  ........
+#
+      0      0x564a1346b980     1       2   20.00%        1        0        1        3        2        1        0        1        0        0        0         0        0         0        1         0         1
+      1      0x7fd7b05ed980     1       1   20.00%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+      2      0x558272187840     1       3   20.00%        1        0        1        5        3        2        0        2        1        0        0         0        0         0        1         0         1
+      3      0x7f9dd8006a00     0       1   20.00%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+      4      0x7f9dd800b440     1       1   20.00%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+
+=================================================
+      Shared Cache Line Distribution Pareto      
+=================================================
+#
+#        ----- HITM -----  -- Store Refs --  --------- Data address ---------                               ---------- cycles ----------    Total       cpu                                    Shared                   
+#   Num  RmtHitm  LclHitm   L1 Hit  L1 Miss              Offset  Node  PA cnt      Pid        Code address  rmt hitm  lcl hitm      load  records       cnt                  Symbol            Object  Source:Line  Node{cpu list}
+# .....  .......  .......  .......  .......  ..................  ....  ......  .......  ..................  ........  ........  ........  .......  ........  ......................  ................  ...........  ....
+#
+  -------------------------------------------------------------
+      0        1        0        0        1      0x564a1346b980
+  -------------------------------------------------------------
+           0.00%    0.00%    0.00%  100.00%                0x18     1       1  3579786      0x7f9dec5cfb50         0         0         0        1         1  [.] 0x00007f9dec5cfb50  [unknown]         ??:0          0{4}
+         100.00%    0.00%    0.00%    0.00%                0x3c     1       1  3579786      0x7f9dec5d0a84       194         0         0        2         1  [.] 0x00007f9dec5d0a84  [unknown]         ??:0          0{20}
+
+  -------------------------------------------------------------
+      1        1        0        0        0      0x7fd7b05ed980
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x20     1       1  3579900      0x7fd7caa237c9       188         0         0        2         1  [.] 0x00007fd7caa237c9  [unknown]         ??:0          0{23}
+
+  -------------------------------------------------------------
+      2        1        0        0        2      0x558272187840
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x10     1       1  3580098      0x558271239186       208         0         0        2         1  [.] 0x0000000000019186  snap              snap[419186]   0{1}
+           0.00%    0.00%    0.00%   50.00%                0x20     1       1  3580098      0x558271247b29         0         0         0        1         1  [.] 0x0000000000027b29  snap              snap[427b29]   0{1}
+           0.00%    0.00%    0.00%   50.00%                0x38     1       1  3580098      0x558271245bf2         0         0         0        1         1  [.] 0x0000000000025bf2  snap              snap[425bf2]   0{1}
+
+  -------------------------------------------------------------
+      3        1        0        0        0      0x7f9dd8006a00
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x30     0       1  3579786      0x7f9dec5bf195       218         0         0        2         1  [.] 0x00007f9dec5bf195  [unknown]         ??:0          0{20}
+
+  -------------------------------------------------------------
+      4        1        0        0        0      0x7f9dd800b440
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x18     1       1  3579786      0x7f9dec6e1030       223         0         0        2         1  [.] 0x00007f9dec6e1030  [unknown]         ??:0          1{9}

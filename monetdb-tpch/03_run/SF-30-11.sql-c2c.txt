@@ -1,0 +1,82 @@
+=================================================
+            Trace Event Information              
+=================================================
+  Total records                     :       8326
+  Locked Load/Store Operations      :         17
+  Load Operations                   :        654
+  Loads - uncacheable               :          0
+  Loads - IO                        :          0
+  Loads - Miss                      :          0
+  Loads - no mapping                :          3
+  Load Fill Buffer Hit              :        112
+  Load L1D hit                      :        377
+  Load L2D hit                      :         14
+  Load LLC hit                      :        142
+  Load Local HITM                   :          0
+  Load Remote HITM                  :          1
+  Load Remote HIT                   :          1
+  Load Local DRAM                   :          3
+  Load Remote DRAM                  :          3
+  Load MESI State Exclusive         :          5
+  Load MESI State Shared            :          1
+  Load LLC Misses                   :          8
+  Load access blocked by data       :          0
+  Load access blocked by address    :          0
+  LLC Misses to Local DRAM          :       37.5%
+  LLC Misses to Remote DRAM         :       37.5%
+  LLC Misses to Remote cache (HIT)  :       12.5%
+  LLC Misses to Remote cache (HITM) :       12.5%
+  Store Operations                  :       7672
+  Store - uncacheable               :          0
+  Store - no mapping                :          0
+  Store L1D Hit                     :          0
+  Store L1D Miss                    :       7672
+  No Page Map Rejects               :        722
+  Unable to parse data source       :          0
+
+=================================================
+    Global Shared Cache Line Event Information   
+=================================================
+  Total Shared Cache Lines          :          1
+  Load HITs on shared lines         :          1
+  Fill Buffer Hits on shared lines  :          0
+  L1D hits on shared lines          :          0
+  L2D hits on shared lines          :          0
+  LLC hits on shared lines          :          0
+  Locked Access on shared lines     :          0
+  Blocked Access on shared lines    :          0
+  Store HITs on shared lines        :          0
+  Store L1D hits on shared lines    :          0
+  Total Merged records              :          1
+
+=================================================
+                 c2c details                     
+=================================================
+  Events                            : cpu/mem-loads,ldlat=30/P
+                                    : cpu/mem-stores/P
+                                    : dummy:uh
+  Cachelines sort on                : Total HITMs
+  Cacheline data grouping           : offset,pid,iaddr
+
+=================================================
+           Shared Data Cache Line Table          
+=================================================
+#
+#        ----------- Cacheline ----------      Tot  ------- Load Hitm -------    Total    Total    Total  ---- Stores ----  ----- Core Load Hit -----  - LLC Load Hit --  - RMT Load Hit --  --- Load Dram ----
+# Index             Address  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads   Stores    L1Hit   L1Miss       FB       L1       L2    LclHit  LclHitm    RmtHit  RmtHitm       Lcl       Rmt
+# .....  ..................  ....  ......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  ........  .......  ........  .......  ........  ........
+#
+      0      0x558a8fe7d780     1       1  100.00%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+
+=================================================
+      Shared Cache Line Distribution Pareto      
+=================================================
+#
+#        ----- HITM -----  -- Store Refs --  --------- Data address ---------                               ---------- cycles ----------    Total       cpu                                    Shared                   
+#   Num  RmtHitm  LclHitm   L1 Hit  L1 Miss              Offset  Node  PA cnt      Pid        Code address  rmt hitm  lcl hitm      load  records       cnt                  Symbol            Object  Source:Line  Node{cpu list}
+# .....  .......  .......  .......  .......  ..................  ....  ......  .......  ..................  ........  ........  ........  .......  ........  ......................  ................  ...........  ....
+#
+  -------------------------------------------------------------
+      0        1        0        0        0      0x558a8fe7d780
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x4     1       1  3584337      0x558a8e77d822       169         0         0        2         1  [.] 0x000000000006d822  bash              ??:0          1{12}
