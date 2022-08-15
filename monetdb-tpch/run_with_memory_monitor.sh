@@ -4,14 +4,14 @@ shift
 echo First argument: "$first_arg"
 echo Remaining arguments: "$@"
 set -m
-mserver5 --dbpath=/home/victoryang00/tpch-scripts/$5/$5 --set monet_vault_key=/home/victoryang00/tpch-scripts/$5/$5/.vaultkey &
-echo mserver5 --dbpath=/home/victoryang00/tpch-scripts/$5/$5 --set monet_vault_key=/home/victoryang00/tpch-scripts/$5/$5/.vaultkey 
+mserver5 --dbpath=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5 --set monet_vault_key=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5/.vaultkey &
+echo mserver5 --dbpath=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5 --set monet_vault_key=/home/victoryang00/tpch-scripts/monetdb-tpch/$5/$5/.vaultkey 
 pid1=$!
 # echo $pid1 > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs
 # echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes
 #../run_with_memory_monitor.sh',str(args.memory), "mclient", '-tperformance', '-fraw', '-d', db, queryfile
 sleep 2 
-python3 /home/victoryang00/pmu-tools/ucevent/ucevent.py --interval 200 -o $5-$6.csv --csv out.csv -x , CBO.LLC_VICTIMS.M_STATE S1-CBO.LLC_DRD_MISS_PCT S0-CBO.LLC_DRD_MISS_PCT CBO.LLC_LOOKUP  &
+# python3 /home/victoryang00/pmu-tools/ucevent/ucevent.py --interval 100 -o $5-$6.csv --csv out.csv -x , CBO.LLC_VICTIMS.M_STATE CBO.LLC_VICTIMS.MISS CBO.LLC_VICTIMS  &
 pid2=$!
 "$@" &
 pid=$!
@@ -36,11 +36,11 @@ if ! ps -p $pid > /dev/null
 then
 sleep 0.5
    ps -aux | grep mserver5| grep -v grep | awk '{print $2}' | xargs kill -9
-   #    rm /home/victoryang00/tpch-scripts/SF-100/SF-100/.gdk_lock
-    ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15 
-sleep 0.5
+   #    rm /home/victoryang00/tpch-scripts/monetdb-tpch/SF-100/SF-100/.gdk_lock
+    # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15 
+# sleep 0.5
 
-    ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15 
+    # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15 
     # ps -aux | grep perf | grep -v grep | awk '{print $2}' | xargs kill -15 
    
    sleep 1
