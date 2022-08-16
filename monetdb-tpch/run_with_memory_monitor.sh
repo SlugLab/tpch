@@ -48,7 +48,7 @@ while true; do
                 # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15
                 kill -INT $pid2
 
-                sleep 2
+                sleep 10
                 perf c2c report -NN -c pid,iaddr --full-symbols --stdio >$5-$6-c2c.txt
                 awk 'BEGIN { maxvsz=0; maxrss=0; count=0; sum=0; sum1=0;} \
     { if ($5>maxvsz) {maxvsz=$5}; if ($6>maxrss) {maxrss=$6};  sum=sum+$6; count=count+1; sum1=sum1+$5;}\
