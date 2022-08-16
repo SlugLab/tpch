@@ -1,60 +1,60 @@
 =================================================
             Trace Event Information              
 =================================================
-  Total records                     :       1462
-  Locked Load/Store Operations      :          2
-  Load Operations                   :         71
-  Loads - uncacheable               :          0
-  Loads - IO                        :          0
-  Loads - Miss                      :          0
-  Loads - no mapping                :          1
-  Load Fill Buffer Hit              :         17
-  Load L1D hit                      :         37
-  Load L2D hit                      :          1
-  Load LLC hit                      :         13
-  Load Local HITM                   :          0
-  Load Remote HITM                  :          0
-  Load Remote HIT                   :          0
-  Load Local DRAM                   :          2
-  Load Remote DRAM                  :          0
-  Load MESI State Exclusive         :          2
-  Load MESI State Shared            :          0
-  Load LLC Misses                   :          2
+  Total records                     :     194637
+  Locked Load/Store Operations      :        298
+  Load Operations                   :      15549
+  Loads - uncacheable               :         19
+  Loads - IO                        :          1
+  Loads - Miss                      :          2
+  Loads - no mapping                :          8
+  Load Fill Buffer Hit              :       3262
+  Load L1D hit                      :       8642
+  Load L2D hit                      :        911
+  Load LLC hit                      :       2635
+  Load Local HITM                   :         58
+  Load Remote HITM                  :         22
+  Load Remote HIT                   :          3
+  Load Local DRAM                   :         33
+  Load Remote DRAM                  :         36
+  Load MESI State Exclusive         :         66
+  Load MESI State Shared            :          3
+  Load LLC Misses                   :         94
   Load access blocked by data       :          0
   Load access blocked by address    :          0
-  LLC Misses to Local DRAM          :      100.0%
-  LLC Misses to Remote DRAM         :        0.0%
-  LLC Misses to Remote cache (HIT)  :        0.0%
-  LLC Misses to Remote cache (HITM) :        0.0%
-  Store Operations                  :       1391
+  LLC Misses to Local DRAM          :       35.1%
+  LLC Misses to Remote DRAM         :       38.3%
+  LLC Misses to Remote cache (HIT)  :        3.2%
+  LLC Misses to Remote cache (HITM) :       23.4%
+  Store Operations                  :     179088
   Store - uncacheable               :          0
   Store - no mapping                :          0
   Store L1D Hit                     :          0
-  Store L1D Miss                    :       1391
-  No Page Map Rejects               :        202
+  Store L1D Miss                    :     179088
+  No Page Map Rejects               :     183526
   Unable to parse data source       :          0
 
 =================================================
     Global Shared Cache Line Event Information   
 =================================================
-  Total Shared Cache Lines          :          0
-  Load HITs on shared lines         :          0
-  Fill Buffer Hits on shared lines  :          0
-  L1D hits on shared lines          :          0
-  L2D hits on shared lines          :          0
-  LLC hits on shared lines          :          0
-  Locked Access on shared lines     :          0
+  Total Shared Cache Lines          :         66
+  Load HITs on shared lines         :        197
+  Fill Buffer Hits on shared lines  :         48
+  L1D hits on shared lines          :         20
+  L2D hits on shared lines          :         22
+  LLC hits on shared lines          :         84
+  Locked Access on shared lines     :         10
   Blocked Access on shared lines    :          0
   Store HITs on shared lines        :          0
   Store L1D hits on shared lines    :          0
-  Total Merged records              :          0
+  Total Merged records              :         80
 
 =================================================
                  c2c details                     
 =================================================
   Events                            : cpu/mem-loads,ldlat=30/P
                                     : cpu/mem-stores/P
-                                    : dummy:uh
+                                    : dummy:HG
   Cachelines sort on                : Total HITMs
   Cacheline data grouping           : offset,pid,iaddr
 
@@ -66,8 +66,411 @@
 # Index             Address  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads   Stores    L1Hit   L1Miss       FB       L1       L2    LclHit  LclHitm    RmtHit  RmtHitm       Lcl       Rmt
 # .....  ..................  ....  ......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  .......  ........  .......  ........  .......  ........  ........
 #
+      0  0xffffffffa9bf12c0     1       1    6.25%        5        4        1       13       13        0        0        0        0        4        2         1        4         0        1         0         1
+      1  0xffffffffa9c0f540     1      14    6.25%        5        3        2       32       32        0        0        0        3        6       11         5        3         0        2         0         2
+      2  0xffff92ddffab0b00     0       7    3.75%        3        3        0        8        8        0        0        0        2        2        0         1        3         0        0         0         0
+      3  0xffff92ddffa71580     0       2    2.50%        2        2        0        3        3        0        0        0        1        0        0         0        2         0        0         0         0
+      4  0xffff92ddffc30b00     0       3    2.50%        2        2        0        4        4        0        0        0        1        0        0         1        2         0        0         0         0
+      5  0xffff92edffa30b00     1       5    2.50%        2        2        0        5        5        0        0        0        2        0        1         0        2         0        0         0         0
+      6  0xffff92edffab1580     1       3    2.50%        2        1        1        6        6        0        0        0        2        0        0         1        1         0        1         0         1
+      7  0xffffffffa9407980     1       1    1.25%        1        0        1       17       17        0        0        0        6        2        1         6        0         0        1         0         1
+      8  0xffffffffa957fa40     1       4    1.25%        1        1        0        9        9        0        0        0        3        1        1         3        1         0        0         0         0
+      9  0xffffffffa957fc40     1       3    1.25%        1        0        1        6        6        0        0        0        2        1        0         1        0         0        1         0         1
+     10  0xffffffffa9c7d1c0     1       1    1.25%        1        0        1       10       10        0        0        0        5        0        1         2        0         0        1         0         1
+     11      0x7f331a5cb200     0       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     12  0xffff92cec45baa00     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     13  0xffff92cec7b6e4c0     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     14  0xffff92ced5605380     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     15  0xffff92ceeaa07040     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     16  0xffff92cefae8b200     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     17  0xffff92cefae8bb00     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     18  0xffff92cefeac5980     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     19  0xffff92cf487de500     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     20  0xffff92cf498a6640     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     21  0xffff92cfde11e4c0     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     22  0xffff92ddffa30c40     0       2    1.25%        1        1        0        2        2        0        0        0        0        0        1         0        1         0        0         0         0
+     23  0xffff92ddffa314c0     0       1    1.25%        1        1        0        2        2        0        0        0        0        1        0         0        1         0        0         0         0
+     24  0xffff92ddffa70c80     0       3    1.25%        1        1        0        3        3        0        0        0        2        0        0         0        1         0        0         0         0
+     25  0xffff92ddffa71500     0       1    1.25%        1        0        1        3        3        0        0        0        0        0        0         1        0         0        1         0         1
+     26  0xffff92ddffb204c0     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     27  0xffff92ddffb31a00     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     28  0xffff92ddffbb1580     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     29  0xffff92ddffc70c40     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     30  0xffff92ddffcb0b00     0       3    1.25%        1        1        0        5        5        0        0        0        2        1        0         1        1         0        0         0         0
+     31  0xffff92ddffd70b00     0       1    1.25%        1        1        0        2        2        0        0        0        0        0        1         0        1         0        0         0         0
+     32  0xffff92ddffd714c0     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     33  0xffff92ddffdf1680     0       2    1.25%        1        1        0        2        2        0        0        0        0        0        0         1        1         0        0         0         0
+     34  0xffff92de43d0fbc0     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     35  0xffff92de4a5c3180     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     36  0xffff92de4a5cf780     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     37  0xffff92de4ff1c5c0     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     38  0xffff92de52a74b00     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     39  0xffff92de816afec0     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     40  0xffff92de90c90000     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     41  0xffff92de94cbcfc0     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     42  0xffff92de951225c0     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     43  0xffff92e9c7566140     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     44  0xffff92edffa31580     1       3    1.25%        1        0        1        4        4        0        0        0        1        0        0         1        0         0        1         0         1
+     45  0xffff92edffaf0b00     1       2    1.25%        1        1        0        2        2        0        0        0        1        0        0         0        1         0        0         0         0
+     46  0xffff92edffb714c0     1       3    1.25%        1        1        0        4        4        0        0        0        2        0        1         0        1         0        0         0         0
+     47  0xffff92edffb71580     1       2    1.25%        1        1        0        6        6        0        0        0        3        0        2         0        1         0        0         0         0
+     48  0xffff92edffb71a00     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     49  0xffff92edffcb1a40     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     50  0xffff92edffd71a00     1       2    1.25%        1        0        1        3        3        0        0        0        1        0        0         0        0         0        1         0         1
+     51  0xffff92edffdb0c80     1       3    1.25%        1        0        1        7        7        0        0        0        4        0        0         1        0         0        1         0         1
+     52  0xffff92edffdb1540     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     53  0xffff92edffdf14c0     1       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     54  0xffff92edffdf1a40     1       1    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
+     55  0xffffb7418b8a7b40   N/A       0    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     56  0xffffb7418b8a7b80   N/A       0    1.25%        1        1        0        2        2        0        0        0        0        1        0         0        1         0        0         0         0
+     57  0xffffb7418bb9ff80   N/A       0    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     58  0xffffd7317f20e140   N/A       0    1.25%        1        1        0        3        3        0        0        0        2        0        0         0        1         0        0         0         0
+     59  0xffffd7317f61b400   N/A       0    1.25%        1        1        0        4        4        0        0        0        3        0        0         0        1         0        0         0         0
+     60  0xffffd85f0855a000   N/A       0    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     61  0xffffd85f296fd7c0   N/A       0    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     62  0xffffd85f30605b80   N/A       0    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     63  0xffffd85f40584580   N/A       0    1.25%        1        0        1        3        3        0        0        0        0        1        0         0        0         0        1         0         1
+     64      0x7ff0f4104f40     0       1    1.25%        1        1        0        1        1        0        0        0        0        0        0         0        1         0        0         0         0
+     65      0x7ffd04bc6100   N/A       0    1.25%        1        0        1        2        2        0        0        0        0        0        0         0        0         0        1         0         1
 
 =================================================
       Shared Cache Line Distribution Pareto      
 =================================================
 #
+#        ----- HITM -----  -- Store Refs --  --------- Data address ---------                               ---------- cycles ----------    Total       cpu                                    Shared                             
+#   Num  RmtHitm  LclHitm   L1 Hit  L1 Miss              Offset  Node  PA cnt      Pid        Code address  rmt hitm  lcl hitm      load  records       cnt                 Symbol             Object            Source:Line  Node{cpu list}
+# .....  .......  .......  .......  .......  ..................  ....  ......  .......  ..................  ........  ........  ........  .......  ........  .....................  .................  .....................  ....
+#
+  -------------------------------------------------------------
+      0        1        4        0        0  0xffffffffa9bf12c0
+  -------------------------------------------------------------
+         100.00%  100.00%    0.00%    0.00%                 0xc     1       1        0  0xffffffffa76a0f2a       311       186       369       13         9  [k] native_set_fixmap  [kernel.kallsyms]  native_set_fixmap+106   0{0,3,6-7,19,23}  1{12,15,27}
+
+  -------------------------------------------------------------
+      1        2        3        0        0  0xffffffffa9c0f540
+  -------------------------------------------------------------
+          50.00%    0.00%    0.00%    0.00%                0x10     1       1        0  0xffffffffa77043b9       161         0       149       12         8  [k] scheduler_tick           [kernel.kallsyms]  scheduler_tick+153            0{1,5,16,20-21}  1{13-14,29}
+          50.00%  100.00%    0.00%    0.00%                0x14     1       1        0  0xffffffffa83aacc9       175       127       171       13        11  [k] _raw_spin_trylock        [kernel.kallsyms]  _raw_spin_trylock+9           0{1-2,4,22}  1{9,11-13,15,26-27}
+
+  -------------------------------------------------------------
+      2        0        3        0        0  0xffff92ddffab0b00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x4     0       1        0  0xffffffffa7715c47         0       117         0        3         3  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+279   0{0-1,6}
+
+  -------------------------------------------------------------
+      3        0        2        0        0  0xffff92ddffa71580
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     0       1        0  0xffffffffa7715c20         0       112         0        2         2  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+240   0{4,7}
+
+  -------------------------------------------------------------
+      4        0        2        0        0  0xffff92ddffc30b00
+  -------------------------------------------------------------
+           0.00%   50.00%    0.00%    0.00%                 0x4     0       1        0  0xffffffffa76ffd19         0       123         0        1         1  [k] get_nohz_timer_target  [kernel.kallsyms]  get_nohz_timer_target+345   0{22}
+           0.00%   50.00%    0.00%    0.00%                 0x4     0       1        0  0xffffffffa7715c47         0       203        44        2         2  [k] update_sg_lb_stats     [kernel.kallsyms]  update_sg_lb_stats+279      0{1,3}
+
+  -------------------------------------------------------------
+      5        0        2        0        0  0xffff92edffa30b00
+  -------------------------------------------------------------
+           0.00%   50.00%    0.00%    0.00%                 0x4     1       1        0  0xffffffffa7704b82         0       114       119        2         2  [k] idle_cpu            [kernel.kallsyms]  idle_cpu+66              1{13,30}
+           0.00%   50.00%    0.00%    0.00%                 0x4     1       1        0  0xffffffffa7715c47         0        90         0        1         1  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+279   1{10}
+
+  -------------------------------------------------------------
+      6        1        1        0        0  0xffff92edffab1580
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8     1       1  3660172  0xffffffffa7715c20       232         0         0        2         1  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+240   0{19}
+           0.00%  100.00%    0.00%    0.00%                 0x8     1       1        0  0xffffffffa7715c20         0       254        34        2         2  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+240   1{8,11}
+
+  -------------------------------------------------------------
+      7        1        0        0        0  0xffffffffa9407980
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x0     1       1        0  0xffffffffa767f1bb       430         0        52        3         2  [k] tsc_verify_tsc_adjust  [kernel.kallsyms]  tsc_verify_tsc_adjust+75   0{5}  1{13}
+
+  -------------------------------------------------------------
+      8        0        1        0        0  0xffffffffa957fa40
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     1       1        0  0xffffffffa775f4d8         0        78        59        2         2  [k] note_gp_changes      [kernel.kallsyms]  note_gp_changes+40        1{8,14}
+
+  -------------------------------------------------------------
+      9        1        0        0        0  0xffffffffa957fc40
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8     1       1        0  0xffffffffa7761c1e       187         0         0        2         1  [k] rcu_sched_clock_irq            [kernel.kallsyms]  rcu_sched_clock_irq+286            0{20}
+
+  -------------------------------------------------------------
+     10        1        0        0        0  0xffffffffa9c7d1c0
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x34     1       1        0  0xffffffffa77772d2       160         0        74       10         9  [k] ktime_get_update_offsets_now  [kernel.kallsyms]  ktime_get_update_offsets_now+146   0{1,3,5,19-20}  1{11,26,29,31}
+
+  -------------------------------------------------------------
+     11        1        0        0        0      0x7f331a5cb200
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x0     0       1  3667292  0xffffffffa7c9ec6e       391         0         0        2         1  [k] copy_user_enhanced_fast_string  [kernel.kallsyms]  copy_user_enhanced_fast_string+14   1{31}
+
+  -------------------------------------------------------------
+     12        0        1        0        0  0xffff92cec45baa00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     0       1  3610032  0xffffffffa76e0e24         0       198         0        1         1  [k] process_one_work  [kernel.kallsyms]  process_one_work+52   0{1}
+
+  -------------------------------------------------------------
+     13        0        1        0        0  0xffff92cec7b6e4c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x38     0       1        0  0xffffffffa77123cb         0       278         0        1         1  [k] set_next_entity  [kernel.kallsyms]  set_next_entity+27   0{22}
+
+  -------------------------------------------------------------
+     14        0        1        0        0  0xffff92ced5605380
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x28     0       1  3660438  0xffffffffc0883d18         0       233         0        1         1  [k] xprt_lookup_rqst  [sunrpc]  ??:0          0{18}
+
+  -------------------------------------------------------------
+     15        0        1        0        0  0xffff92ceeaa07040
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x20     0       1  3305507  0xffffffffa83a55e3         0       115         0        1         1  [k] schedule  [kernel.kallsyms]  schedule+51   0{1}
+
+  -------------------------------------------------------------
+     16        0        1        0        0  0xffff92cefae8b200
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x18     0       1  3495413  0xffffffffa76fa074         0       166         0        1         1  [k] prepare_task_switch  [kernel.kallsyms]  prepare_task_switch+84   0{0}
+
+  -------------------------------------------------------------
+     17        0        1        0        0  0xffff92cefae8bb00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x4     0       1  3634755  0xffffffffa77006f2         0       122         0        1         1  [k] ttwu_do_activate  [kernel.kallsyms]  ttwu_do_activate+34   0{19}
+
+  -------------------------------------------------------------
+     18        0        1        0        0  0xffff92cefeac5980
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x38     0       1  3610032  0xffffffffc11e5e3c         0       642         0        1         1  [k] nfs_inode_remove_request  [nfs]  ??:0          0{3}
+
+  -------------------------------------------------------------
+     19        0        1        0        0  0xffff92cf487de500
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x10     0       1  3660438  0xffffffffa7714981         0       117         0        1         1  [k] enqueue_entity  [kernel.kallsyms]  enqueue_entity+689   0{18}
+
+  -------------------------------------------------------------
+     20        0        1        0        0  0xffff92cf498a6640
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0     0       1        0  0xffffffffa770e832         0       183         0        1         1  [k] update_load_avg  [kernel.kallsyms]  update_load_avg+82   0{3}
+
+  -------------------------------------------------------------
+     21        0        1        0        0  0xffff92cfde11e4c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x38     0       1        0  0xffffffffa7714c82         0       174         0        1         1  [k] enqueue_task_fair  [kernel.kallsyms]  enqueue_task_fair+194   0{1}
+
+  -------------------------------------------------------------
+     22        0        1        0        0  0xffff92ddffa30c40
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     0       1        0  0xffffffffa770ac76         0       121         0        1         1  [k] pick_next_entity  [kernel.kallsyms]  pick_next_entity+22   0{0}
+
+  -------------------------------------------------------------
+     23        0        1        0        0  0xffff92ddffa314c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x28     0       1        0  0xffffffffa7704b69         0        78         0        1         1  [k] idle_cpu              [kernel.kallsyms]  idle_cpu+41               0{1}
+
+  -------------------------------------------------------------
+     24        0        1        0        0  0xffff92ddffa70c80
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x20     0       1        0  0xffffffffa7715bd2         0        96         0        1         1  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+162   0{4}
+
+  -------------------------------------------------------------
+     25        1        0        0        0  0xffff92ddffa71500
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8     0       1        0  0xffffffffa7704384       285         0        37        3         1  [k] scheduler_tick  [kernel.kallsyms]  scheduler_tick+100   0{1}
+
+  -------------------------------------------------------------
+     26        0        1        0        0  0xffff92ddffb204c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0     0       1        0  0xffffffffa77322fb         0       200         0        1         1  [k] sugov_iowait_boost  [kernel.kallsyms]  sugov_iowait_boost+27   0{4}
+
+  -------------------------------------------------------------
+     27        0        1        0        0  0xffff92ddffb31a00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     0       1       15  0xffffffffa775be2d         0       124         0        1         1  [k] rcu_implicit_dynticks_qs  [kernel.kallsyms]  rcu_implicit_dynticks_qs+29   0{19}
+
+  -------------------------------------------------------------
+     28        0        1        0        0  0xffff92ddffbb1580
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     0       1        0  0xffffffffa7715c20         0       111         0        1         1  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+240   0{3}
+
+  -------------------------------------------------------------
+     29        0        1        0        0  0xffff92ddffc70c40
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     0       1        0  0xffffffffa770ac76         0       213         0        1         1  [k] pick_next_entity  [kernel.kallsyms]  pick_next_entity+22   0{17}
+
+  -------------------------------------------------------------
+     30        0        1        0        0  0xffff92ddffcb0b00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x4     0       1        0  0xffffffffa76ffd19         0       229         0        1         1  [k] get_nohz_timer_target  [kernel.kallsyms]  get_nohz_timer_target+345   0{0}
+
+  -------------------------------------------------------------
+     31        0        1        0        0  0xffff92ddffd70b00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x4     0       1        0  0xffffffffa7715c47         0        98        86        2         2  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+279   0{0,7}
+
+  -------------------------------------------------------------
+     32        0        1        0        0  0xffff92ddffd714c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x28     0       1        0  0xffffffffa7704b69         0       173         0        1         1  [k] idle_cpu  [kernel.kallsyms]  idle_cpu+41   0{7}
+
+  -------------------------------------------------------------
+     33        0        1        0        0  0xffff92ddffdf1680
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0     0       1  3305507  0xffffffffa77005b6         0       172         0        1         1  [k] ttwu_do_wakeup         [kernel.kallsyms]  ttwu_do_wakeup+86          0{1}
+
+  -------------------------------------------------------------
+     34        1        0        0        0  0xffff92de43d0fbc0
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x10     1       1  3657295  0xffffffffa788d153       195         0         0        2         1  [k] perf_poll  [kernel.kallsyms]  perf_poll+83   0{5}
+
+  -------------------------------------------------------------
+     35        0        1        0        0  0xffff92de4a5c3180
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0     1       1        0  0xffffffffa770e832         0       133         0        1         1  [k] update_load_avg  [kernel.kallsyms]  update_load_avg+82   1{10}
+
+  -------------------------------------------------------------
+     36        0        1        0        0  0xffff92de4a5cf780
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0     1       1        0  0xffffffffa770e832         0       164         0        1         1  [k] update_load_avg  [kernel.kallsyms]  update_load_avg+82   1{24}
+
+  -------------------------------------------------------------
+     37        1        0        0        0  0xffff92de4ff1c5c0
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x10     1       1  3495413  0xffffffffc11e5a19       363         0         0        2         1  [k] nfs_page_find_private_request  [nfs]  ??:0          0{0}
+
+  -------------------------------------------------------------
+     38        0        1        0        0  0xffff92de52a74b00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x20     1       1        0  0xffffffffc0a47512         0       141         0        1         1  [k] fq_codel_dequeue  [sch_fq_codel]  ??:0          0{18}
+
+  -------------------------------------------------------------
+     39        0        1        0        0  0xffff92de816afec0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     1       1  3634755  0xffffffffc0884bbf         0       431         0        1         1  [k] xprt_alloc_slot  [sunrpc]  ??:0          0{22}
+
+  -------------------------------------------------------------
+     40        1        0        0        0  0xffff92de90c90000
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x2e     1       1  3667293  0xffffffffa76c364b       348         0         0        2         1  [k] mm_update_next_owner  [kernel.kallsyms]  mm_update_next_owner+427   1{8}
+
+  -------------------------------------------------------------
+     41        1        0        0        0  0xffff92de94cbcfc0
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x10     1       1  3657295  0xffffffffa788d135       302         0         0        2         1  [k] perf_poll  [kernel.kallsyms]  perf_poll+53   0{5}
+
+  -------------------------------------------------------------
+     42        0        1        0        0  0xffff92de951225c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x30     1       1        0  0xffffffffa7733e59         0       130         0        1         1  [k] psi_flags_change  [kernel.kallsyms]  psi_flags_change+25   1{24}
+
+  -------------------------------------------------------------
+     43        1        0        0        0  0xffff92e9c7566140
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8     1       1  3661126  0xffffffffa7c3fd20       363         0         0        2         1  [k] _copy_from_iter  [kernel.kallsyms]  _copy_from_iter+1104   0{16}
+
+  -------------------------------------------------------------
+     44        1        0        0        0  0xffff92edffa31580
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8     1       1  3667357  0xffffffffa770b93e       434         0         0        2         1  [k] update_sg_wakeup_stats  [kernel.kallsyms]  update_sg_wakeup_stats+654   0{23}
+
+  -------------------------------------------------------------
+     45        0        1        0        0  0xffff92edffaf0b00
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x4     1       1        0  0xffffffffa7715c47         0       193         0        1         1  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+279   1{15}
+
+  -------------------------------------------------------------
+     46        0        1        0        0  0xffff92edffb714c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x20     1       1        0  0xffffffffa7704b77         0       192         0        1         1  [k] idle_cpu              [kernel.kallsyms]  idle_cpu+55               1{8}
+
+  -------------------------------------------------------------
+     47        0        1        0        0  0xffff92edffb71580
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8     1       1        0  0xffffffffa7715c20         0       104       175        2         2  [k] update_sg_lb_stats  [kernel.kallsyms]  update_sg_lb_stats+240   1{10,12}
+
+  -------------------------------------------------------------
+     48        1        0        0        0  0xffff92edffb71a00
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x10     1       1        0  0xffffffffa839c284       151         0         0        2         1  [k] rcu_eqs_exit.constprop.0  [kernel.kallsyms]  rcu_eqs_exit.constprop.0+20   1{13}
+
+  -------------------------------------------------------------
+     49        1        0        0        0  0xffff92edffcb1a40
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x38     1       1       15  0xffffffffa775bfbd       393         0         0        2         1  [k] rcu_implicit_dynticks_qs  [kernel.kallsyms]  rcu_implicit_dynticks_qs+429   0{2}
+
+  -------------------------------------------------------------
+     50        1        0        0        0  0xffff92edffd71a00
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x10     1       1        0  0xffffffffa839c284       118         0         0        2         1  [k] rcu_eqs_exit.constprop.0  [kernel.kallsyms]  rcu_eqs_exit.constprop.0+20   1{29}
+
+  -------------------------------------------------------------
+     51        1        0        0        0  0xffff92edffdb0c80
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x0     1       1        0  0xffffffffa772b7cd       115         0         0        2         1  [k] __update_load_avg_cfs_rq  [kernel.kallsyms]  __update_load_avg_cfs_rq+61   1{30}
+
+  -------------------------------------------------------------
+     52        0        1        0        0  0xffff92edffdb1540
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x18     1       1        0  0xffffffffa77040a7         0        79         0        1         1  [k] nr_iowait_cpu  [kernel.kallsyms]  nr_iowait_cpu+39   1{30}
+
+  -------------------------------------------------------------
+     53        0        1        0        0  0xffff92edffdf14c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x28     1       1        0  0xffffffffa7704b69         0       186         0        1         1  [k] idle_cpu  [kernel.kallsyms]  idle_cpu+41   1{10}
+
+  -------------------------------------------------------------
+     54        1        0        0        0  0xffff92edffdf1a40
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x38     1       1       15  0xffffffffa775d4b8       198         0         0        2         1  [k] dyntick_save_progress_counter  [kernel.kallsyms]  dyntick_save_progress_counter+72   0{2}
+
+  -------------------------------------------------------------
+     55        0        1        0        0  0xffffb7418b8a7b40
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x38   N/A       0  3660172  0xffffffffa7724f34         0       106         0        1         1  [k] __wake_up_common  [kernel.kallsyms]  __wake_up_common+84   0{6}
+
+  -------------------------------------------------------------
+     56        0        1        0        0  0xffffb7418b8a7b80
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x4   N/A       0  3495413  0xffffffffa78afe1c         0       197         0        1         1  [k] wait_on_page_bit_common  [kernel.kallsyms]  wait_on_page_bit_common+268   0{0}
+
+  -------------------------------------------------------------
+     57        0        1        0        0  0xffffb7418bb9ff80
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x10   N/A       0  3667523  0xffffffffa84010dc         0       125         0        1         1  [k] __irqentry_text_end  [kernel.kallsyms]  __irqentry_text_end+44   0{7}
+
+  -------------------------------------------------------------
+     58        0        1        0        0  0xffffd7317f20e140
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0   N/A       0  3445028  0xffffffffa773480a         0       183         0        1         1  [k] psi_group_change  [kernel.kallsyms]  psi_group_change+74    0{3}
+
+  -------------------------------------------------------------
+     59        0        1        0        0  0xffffd7317f61b400
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0   N/A       0        0  0xffffffffa773480a         0        92         0        1         1  [k] psi_group_change  [kernel.kallsyms]  psi_group_change+74    0{0}
+
+  -------------------------------------------------------------
+     60        0        1        0        0  0xffffd85f0855a000
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8   N/A       0        0  0xffffffffa80caab8         0       279         0        1         1  [k] skb_release_data  [kernel.kallsyms]  skb_release_data+232   0{1}
+
+  -------------------------------------------------------------
+     61        0        1        0        0  0xffffd85f296fd7c0
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x8   N/A       0  3495413  0xffffffffa78b9196         0       153         0        1         1  [k] wait_on_page_writeback  [kernel.kallsyms]  wait_on_page_writeback+38   0{0}
+
+  -------------------------------------------------------------
+     62        0        1        0        0  0xffffd85f30605b80
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                0x34   N/A       0  3495413  0xffffffffa78af1dd         0       265         0        1         1  [k] find_get_pages_range_tag  [kernel.kallsyms]  find_get_pages_range_tag+173   0{0}
+
+  -------------------------------------------------------------
+     63        1        0        0        0  0xffffd85f40584580
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                 0x8   N/A       0  3667542  0xffffffffa78aeea0       394         0         0        2         1  [k] next_uptodate_page  [kernel.kallsyms]  next_uptodate_page+80    0{21}
+
+  -------------------------------------------------------------
+     64        0        1        0        0      0x7ff0f4104f40
+  -------------------------------------------------------------
+           0.00%  100.00%    0.00%    0.00%                 0x0     0       1  3667293      0x7ff1b7907aad         0       135         0        1         1  [.] MALadmission_release  libmonetdb5.so.32.0.6  mal_resource.c:181   0{17}
+
+  -------------------------------------------------------------
+     65        1        0        0        0      0x7ffd04bc6100
+  -------------------------------------------------------------
+         100.00%    0.00%    0.00%    0.00%                0x18   N/A       0  3495314      0x7ffd04bca816       358         0         0        2         1  [.] 0x00007ffd04bca816  [unknown]         ??:0          0{17}
