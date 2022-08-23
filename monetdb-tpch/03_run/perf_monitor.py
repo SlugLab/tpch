@@ -92,7 +92,6 @@ def main(args):
         write("dbname,seqno,query,exec_time,perf_dev,dev_pcnt,perf_stts,rss,avgrss,memory,vsz")
 
     queries = sorted(glob.glob('??.sql'))
-#    queries = ['21.sql']
     if not queries:
         raise Issue("No queries found")
 
