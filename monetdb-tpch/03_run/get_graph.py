@@ -8,27 +8,45 @@ import csv
 style.use('ggplot')
 
 file_list =["SF-1.csv","SF-10.csv","SF-30.csv","SF-100.csv"]
+queue_list = ["q01","q02","q03","q04","q05","q06","q07","q08","q09","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20","q21","q22",]
+result=np.zeros((5,22,4))
+N=100
 
-def plot_TS_expect(result ,*name):  
+def plot_TS_expect(*name):  
     plt.figure(figsize=(16, 9))
-    plt.xticks(np.arange(0, N+1, 500))
-    plt.yticks(np.arange(0, 2, 0.05))
-    plt.ylim(0, 1)
-    for i in name:
-        alpha = result[i][2][:, 1:]
-        beta = result[i][3][:, 1:]
-        plt.plot((alpha/(alpha+beta)))
-    plt.title("Expected probability of each arm for "+" and ".join(name))
-    plt.xlabel("time slot")
-    plt.ylabel("expected probability")
-    for i in name:
-        plt.legend([j+" arm of "+i for i in name for j in ["1st", "2nd", "3rd"]])
+    # plt.xticks(np.arange(0, N+1, 10))
+    # plt.yticks(np.arange(0, N+1, 10))
+    # plt.ylim(0, 1)
+    for i in range(0,3):
+        print(i)
+        for j in range(0,22):
+            first_scale = result[i][j][0]
+            scaled_y = [item/first_scale for item in result[i][j] ]
+            scaled_x = [1,10,30,100]
+            print(scaled_y)
+            plt.plot(scaled_x, scaled_y,label=queue_list[j])
+        leg = plt.legend(loc='upper left')
+        plt.title("The graph for scaled "+name[i])
+        plt.xlabel("SF")
+        plt.ylabel("times")
+        plt.savefig(name[i]+".pdf", format='pdf')
+    for i in range(3,6):
+        print(i)
 
 def get_data(file_list):
-    for file in file_list:
+    for file_idx,file in enumerate(file_list):
         f = open(file,"r")
-        csv.DictReader(file)
+        res = csv.DictReader(f)
+        for r_idx,r in enumerate(res):
+            if r_idx==0:
+                continue
+            result[0][r_idx-1][file_idx]=int(r['rss'])
+            result[1][r_idx-1][file_idx]=int(r['avgrss'])
+            result[2][r_idx-1][file_idx]=int(r['vsz'])
+            result[3][r_idx-1][file_idx]=int(r['llc_miss'])/int(r['llc_hit'])
+            result[4][r_idx-1][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
+    return result
 
 
-get_data(file_list)
-plot_TS_expect([1],)
+result = get_data(file_list)
+plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate")
