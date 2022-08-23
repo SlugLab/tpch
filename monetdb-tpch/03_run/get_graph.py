@@ -30,8 +30,18 @@ def plot_TS_expect(*name):
         plt.xlabel("SF")
         plt.ylabel("times")
         plt.savefig(name[i]+".pdf", format='pdf')
-    for i in range(3,6):
+    for i in range(3,5):
         print(i)
+        for j in range(0,22):
+            scaled_y = result[i][j]
+            scaled_x = [1,10,30,100]
+            print(scaled_y)
+            plt.plot(scaled_x, scaled_y,label=queue_list[j])
+        leg = plt.legend(loc='upper left')
+        plt.title("The graph for scaled "+name[i])
+        plt.xlabel("SF")
+        plt.ylabel("times")
+        plt.savefig(name[i]+".pdf", format='pdf')
 
 def get_data(file_list):
     for file_idx,file in enumerate(file_list):
