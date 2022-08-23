@@ -19,6 +19,8 @@ def plot_TS_expect(*name):
     # plt.ylim(0, 1)
     for i in range(0,3):
         print(i)
+        plt.figure(figsize=(16, 9))
+
         for j in range(0,22):
             first_scale = result[i][j][0]
             scaled_y = [item/first_scale for item in result[i][j] ]
@@ -30,7 +32,10 @@ def plot_TS_expect(*name):
         plt.xlabel("SF")
         plt.ylabel("times")
         plt.savefig(name[i]+".pdf", format='pdf')
+        plt.close()
     for i in range(3,5):
+        plt.figure(figsize=(16, 9))
+
         print(i)
         for j in range(0,22):
             scaled_y = result[i][j]
@@ -42,19 +47,19 @@ def plot_TS_expect(*name):
         plt.xlabel("SF")
         plt.ylabel("times")
         plt.savefig(name[i]+".pdf", format='pdf')
+        plt.close()
+
 
 def get_data(file_list):
     for file_idx,file in enumerate(file_list):
         f = open(file,"r")
         res = csv.DictReader(f)
         for r_idx,r in enumerate(res):
-            if r_idx==0:
-                continue
-            result[0][r_idx-1][file_idx]=int(r['rss'])
-            result[1][r_idx-1][file_idx]=int(r['avgrss'])
-            result[2][r_idx-1][file_idx]=int(r['vsz'])
-            result[3][r_idx-1][file_idx]=int(r['llc_miss'])/int(r['llc_hit'])
-            result[4][r_idx-1][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
+            result[0][r_idx][file_idx]=int(r['rss'])
+            result[1][r_idx][file_idx]=int(r['avgrss'])
+            result[2][r_idx][file_idx]=int(r['vsz'])
+            result[3][r_idx][file_idx]=int(r['llc_miss'])/int(r['llc_hit'])
+            result[4][r_idx][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
     return result
 
 
