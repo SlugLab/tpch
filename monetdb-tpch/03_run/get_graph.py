@@ -9,7 +9,7 @@ style.use('ggplot')
 
 file_list =["SF-1.csv","SF-10.csv","SF-30.csv","SF-100.csv"]
 queue_list = ["q01","q02","q03","q04","q05","q06","q07","q08","q09","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20","q21","q22",]
-result=np.zeros((5,22,4))
+result=np.zeros((7,22,4))
 N=100
 
 def plot_TS_expect(*name):  
@@ -33,7 +33,7 @@ def plot_TS_expect(*name):
         plt.ylabel("times")
         plt.savefig(name[i]+".pdf", format='pdf')
         plt.close()
-    for i in range(3,5):
+    for i in range(3,7):
         plt.figure(figsize=(16, 9))
 
         print(i)
@@ -60,8 +60,10 @@ def get_data(file_list):
             result[2][r_idx][file_idx]=int(r['vsz'])
             result[3][r_idx][file_idx]=int(r['llc_miss'])/int(r['llc_hit'])
             result[4][r_idx][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
+            result[5][r_idx][file_idx]=int(r['llc_miss_stat'])/int(r['llc_lookup_stat'])
+            result[6][r_idx][file_idx]=int(r['llc_hitm_stat'])/int(r['llc_lookup_stat'])
     return result
 
 
 result = get_data(file_list)
-plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate")
+plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate")
