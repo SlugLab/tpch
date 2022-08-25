@@ -4,7 +4,7 @@ shift
 echo First argument: "$first_arg"
 echo Remaining arguments: "$@"
 # set -m
-perf c2c record -F 60000 -a sleep 10000 &
+perf c2c record -F 60000 --all-user sleep 10000 &
 pid2=$!
 echo mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey
 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey &

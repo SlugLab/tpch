@@ -1,0 +1,15 @@
+#2022-08-25 09:31:35: main thread: GDKlockHome: CRITICAL: Database lock '/home/victoryang00/bak/SF-1/SF-1/.gdk_lock' denied
+
+ Performance counter stats for 'CPU(s) 0-31':
+
+             5,638      mem_load_uops_l3_hit_retired.xsnp_hit                                     (14.12%)
+            18,189      mem_load_uops_l3_hit_retired.xsnp_miss                                     (0.16%)
+     <not counted>      mem_load_uops_l3_hit_retired.xsnp_none                                     (0.00%)
+     <not counted>      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (0.00%)
+
+       0.010586702 seconds time elapsed
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog

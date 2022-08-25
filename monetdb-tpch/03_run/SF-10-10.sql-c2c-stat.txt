@@ -1,0 +1,15 @@
+mserver5: Interrupt
+
+ Performance counter stats for 'CPU(s) 0-31':
+
+            12,974      mem_load_uops_l3_hit_retired.xsnp_hit                                     (26.88%)
+            24,106      mem_load_uops_l3_hit_retired.xsnp_miss                                     (13.02%)
+           904,271      mem_load_uops_l3_hit_retired.xsnp_none                                     (2.37%)
+     <not counted>      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (0.00%)
+
+       0.009962292 seconds time elapsed
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
