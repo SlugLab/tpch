@@ -25,7 +25,6 @@ def plot_TS_expect(*name):
             first_scale = result[i][j][0]
             scaled_y = [item/first_scale for item in result[i][j] ]
             scaled_x = [1,10,30,100]
-            print(scaled_y)
             plt.plot(scaled_x, scaled_y,label=queue_list[j])
         leg = plt.legend(loc='upper left')
         plt.title("The graph for scaled "+name[i])
@@ -60,8 +59,8 @@ def get_data(file_list):
             result[2][r_idx][file_idx]=int(r['vsz'])
             result[3][r_idx][file_idx]=int(r['llc_miss'])/int(r['llc_hit'])
             result[4][r_idx][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
-            result[5][r_idx][file_idx]=int(r['llc_miss_stat'])/int(r['llc_lookup_stat'])
-            result[6][r_idx][file_idx]=int(r['llc_hitm_stat'])/int(r['llc_lookup_stat'])
+            result[5][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_lookup_stat'])+int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
+            result[6][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_lookup_stat'])+int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
     return result
 
 
