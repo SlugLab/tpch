@@ -4,9 +4,10 @@ shift
 echo First argument: "$first_arg"
 echo Remaining arguments: "$@"
 # set -m
-echo mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey
-perf stat -C 0-31 -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm  mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey > $5-$6-c2c-stat.txt 2>&1 &
+
+perf stat -C 0-7 --all-user -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey > $5-$6-c2c-stat.txt 2>&1 &
 # pid2=$!
+# echo "perf stat -C 0-7 --all-user -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm taskset -C 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey "
 
 pid1=$!
 count=0
