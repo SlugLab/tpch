@@ -14,15 +14,18 @@ for item in sorted(os.listdir("./")):
         tmp_rss = []
         tmp_wss = []
         tmp_ref = []
-        for line in lines:
-            tmp_rss.append(int(line[10:20].strip()))
-            tmp_wss.append(int(line[20:30].strip()))
-            tmp_ref.append(int(line[30:40].strip()))
+        try:
+            for line in lines:
+                tmp_rss.append(int(line[10:20].strip()))
+                tmp_wss.append(int(line[21:31].strip()))
+                tmp_ref.append(int(line[32:42].strip()))
+        except:
+            pass
         rss.append(tmp_rss)
         wss.append(tmp_wss)
         ref.append(tmp_ref)
-print(len(rss))
-print(len(wss))
+print(rss)
+print(wss)
 # count_file=-1
 # for item in os.listdir("./"):
 #     if (str(item).endswith("0.csv") or str(item).endswith("1.csv")):

@@ -79,8 +79,10 @@ def get_data(file_list):
             result[7][r_idx][file_idx]=int(r['rss'])
             result[8][r_idx][file_idx]=int(r['wss'])
             result[9][r_idx][file_idx]=int(r['ref'])
+            result[10][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
+            result[11][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
     return result
 
 
 result = get_data(file_list)
-plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate")
+plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate","rss","wss","ref","llc_miss_stat_shared_rate","llc_hitm_stat_shared_rate")
