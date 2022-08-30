@@ -44,7 +44,22 @@ def plot_TS_expect(*name):
         leg = plt.legend(loc='upper left')
         plt.title("The graph for scaled "+name[i])
         plt.xlabel("SF")
-        plt.ylabel("times")
+        plt.ylabel("percentage")
+        plt.savefig(name[i]+".pdf", format='pdf')
+        plt.close()
+    for i in range(7,10):
+        plt.figure(figsize=(16, 9))
+
+        print(i)
+        for j in range(0,22):
+            scaled_y = result[i][j]
+            scaled_x = [1,10,30,100]
+            print(scaled_y)
+            plt.plot(scaled_x, scaled_y,label=queue_list[j])
+        leg = plt.legend(loc='upper left')
+        plt.title("The graph for scaled "+name[i])
+        plt.xlabel("SF")
+        plt.ylabel("MB")
         plt.savefig(name[i]+".pdf", format='pdf')
         plt.close()
 
@@ -61,6 +76,9 @@ def get_data(file_list):
             result[4][r_idx][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
             result[5][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_lookup_stat'])+int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
             result[6][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_lookup_stat'])+int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
+            result[7][r_idx][file_idx]=int(r['rss'])
+            result[8][r_idx][file_idx]=int(r['wss'])
+            result[9][r_idx][file_idx]=int(r['ref'])
     return result
 
 
