@@ -9,7 +9,7 @@ style.use('ggplot')
 
 file_list =["SF-1.csv","SF-10.csv","SF-30.csv","SF-100.csv"]
 queue_list = ["q01","q02","q03","q04","q05","q06","q07","q08","q09","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20","q21","q22",]
-result=np.zeros((7,22,4))
+result=np.zeros((14,22,4))
 N=100
 
 def plot_TS_expect(*name):  
@@ -32,7 +32,7 @@ def plot_TS_expect(*name):
         plt.ylabel("times")
         plt.savefig(name[i]+".pdf", format='pdf')
         plt.close()
-    for i in range(3,7):
+    for i in range(3,9):
         plt.figure(figsize=(16, 9))
 
         print(i)
@@ -47,7 +47,7 @@ def plot_TS_expect(*name):
         plt.ylabel("percentage")
         plt.savefig(name[i]+".pdf", format='pdf')
         plt.close()
-    for i in range(7,10):
+    for i in range(9,14):
         plt.figure(figsize=(16, 9))
 
         print(i)
@@ -76,13 +76,15 @@ def get_data(file_list):
             result[4][r_idx][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
             result[5][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_lookup_stat'])+int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
             result[6][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_lookup_stat'])+int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
-            result[7][r_idx][file_idx]=int(r['rss'])
-            result[8][r_idx][file_idx]=int(r['wss'])
-            result[9][r_idx][file_idx]=int(r['ref'])
-            result[10][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
-            result[11][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
+            result[7][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
+            result[8][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
+            result[9][r_idx][file_idx]=float(r['maxrss'])
+            result[10][r_idx][file_idx]=float(r['avgrss1'])
+            result[11][r_idx][file_idx]=float(r['maxwss'])
+            result[12][r_idx][file_idx]=float(r['avgwss'])
+            result[13][r_idx][file_idx]=float(r['ref'])
     return result
 
 
 result = get_data(file_list)
-plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate","rss","wss","ref","llc_miss_stat_shared_rate","llc_hitm_stat_shared_rate")
+plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate","llc_miss_stat_shared_rate","llc_hitm_stat_shared_rate","maxrss","avgrss1","maxwss","avgwss","ref")
