@@ -23,7 +23,7 @@ for item in os.listdir("/home/psafayen/Postgres/results"):
 print(len(load_lookup))
 print(len(load_miss))
 for count_file in range(0,2):
-    f = open(item,'r')
+    f = open("SF-"+str(count_file+1)+".csv",'r')
     res = "llc_hit,llc_hitm,llc_miss\n"
     lines = f.readlines()
     count=-1
