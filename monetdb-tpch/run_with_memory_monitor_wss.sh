@@ -9,7 +9,7 @@ taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_
 pid1=$!
 # echo "perf stat -C 0-7 --all-user -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm taskset -C 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey "
 sleep 1
-../wss.pl -C $pid1 0.2 > $5-$6-wss.txt 2>&1 &
+../wss.pl -s 0 $pid1 0.2 > $5-$6-wss-1.txt 2>&1 &
 pid2=$!
 count=0
 ### Draw graph!!!!
