@@ -23,9 +23,6 @@ N=100
 
 def plot_TS_expect(*name):  
     plt.figure(figsize=(16, 9))
-    # plt.xticks(np.arange(0, N+1, 10))
-    # plt.yticks(np.arange(0, N+1, 10))
-    # plt.ylim(0, 1)
     for i in range(0,4):
         print(i)
         plt.figure(figsize=(16, 9))
@@ -41,7 +38,7 @@ def plot_TS_expect(*name):
         plt.close()
     i=4
     plt.figure(figsize=(16, 9))
-    plt.ylim([0,500])
+    plt.ylim([0,2000])
     for j in range(0,7):
         scaled_y = result[i][j]
         scaled_x =queue_list
