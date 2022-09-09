@@ -9,7 +9,7 @@ style.use('ggplot')
 
 file_list =["SF-1.csv","SF-10.csv","SF-30.csv","SF-100.csv"]
 queue_list = ["q01","q02","q03","q04","q05","q06","q07","q08","q09","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20","q21","q22",]
-result=np.zeros((14,22,4))
+result=np.zeros((17,22,4))
 N=100
 
 def plot_TS_expect(*name):  
@@ -70,7 +70,7 @@ def get_data(file_list):
         res = csv.DictReader(f)
         for r_idx,r in enumerate(res):
             result[0][r_idx][file_idx]=int(r['rss'])
-            result[1][r_idx][file_idx]=int(r['avgrss'])
+            # result[1][r_idx][file_idx]=int(r['avgrss'])
             result[2][r_idx][file_idx]=int(r['vsz'])
             result[3][r_idx][file_idx]=int(r['llc_miss'])/int(r['llc_hit'])
             result[4][r_idx][file_idx]=int(r['llc_hitm'])/int(r['llc_hit'])
@@ -79,12 +79,14 @@ def get_data(file_list):
             result[7][r_idx][file_idx]=int(r['llc_miss_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
             result[8][r_idx][file_idx]=int(r['llc_hitm_stat'])/(int(r['llc_hitm_stat'])+int(r['llc_hit_stat'])+int(r['llc_miss_stat']))
             result[9][r_idx][file_idx]=float(r['maxrss'])
-            result[10][r_idx][file_idx]=float(r['avgrss1'])
+            # result[10][r_idx][file_idx]=float(r['avgrss1'])
             result[11][r_idx][file_idx]=float(r['maxwss'])
-            result[12][r_idx][file_idx]=float(r['avgwss'])
+            # result[12][r_idx][file_idx]=float(r['avgwss'])
             result[13][r_idx][file_idx]=float(r['ref'])
+            result[14][r_idx][file_idx]=float(r['maxref_s'])
+            result[15][r_idx][file_idx]=float(r['avgref_s'])
     return result
 
 
 result = get_data(file_list)
-plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate","llc_miss_stat_shared_rate","llc_hitm_stat_shared_rate","maxrss","avgrss1","maxwss","avgwss","ref")
+plot_TS_expect("rss","avgrss","vsz","llc_miss_rate","llc_hitm_rate","llc_miss_stat_rate","llc_hitm_stat_rate","llc_miss_stat_shared_rate","llc_hitm_stat_shared_rate","maxrss","avgrss1","maxwss","avgwss","ref",'maxref_s','avgref')
