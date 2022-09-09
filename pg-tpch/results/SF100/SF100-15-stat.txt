@@ -1,19 +1,7 @@
-LOG:  database system was shut down at 2022-09-08 10:53:10 PDT
+LOG:  database system was shut down at 2022-09-08 15:26:09 PDT
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
-ERROR:  relation "revenue0" already exists
-STATEMENT:  create view revenue0 (supplier_no, total_revenue) as
-		select
-			l_suppkey,
-			sum(l_extendedprice * (1 - l_discount))
-		from
-			lineitem
-		where
-			l_shipdate >= date '1995-09-01'
-			and l_shipdate < date '1995-09-01' + interval '3' month
-		group by
-			l_suppkey;
 LOG:  received fast shutdown request
 LOG:  aborting any active transactions
 LOG:  autovacuum launcher shutting down
@@ -22,9 +10,10 @@ LOG:  database system is shut down
 
  Performance counter stats for 'CPU(s) 8-15':
 
-         3,659,394      mem_load_uops_l3_hit_retired.xsnp_hit                                     (50.00%)
-         9,490,601      mem_load_uops_l3_hit_retired.xsnp_miss                                     (50.00%)
-     1,063,303,256      mem_load_uops_l3_hit_retired.xsnp_none                                     (50.00%)
-         1,376,722      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (50.00%)
+           173,771      mem_load_uops_l3_hit_retired.xsnp_hit                                     (50.00%)
+           255,932      mem_load_uops_l3_hit_retired.xsnp_miss                                     (50.00%)
+       632,701,214      mem_load_uops_l3_hit_retired.xsnp_none                                     (50.00%)
+           208,553      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (50.00%)
 
-     470.595202826 seconds time elapsed
+     445.176046337 seconds time elapsed
+

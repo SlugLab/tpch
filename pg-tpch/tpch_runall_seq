@@ -24,7 +24,7 @@ fi
 
 perf_set_kernel_params
 
-for i in $(seq 16 22); do
+for i in $(seq 1 22); do
   echo "Running query: $i"
   # perf c2c record -F 60000 -a sleep 1000 &
   # pid2=$!
@@ -51,7 +51,6 @@ for i in $(seq 16 22); do
   fe="queries/q$ii.explain.sql"
   fa="queries/q$ii.analyze.sql"
 
-
   ### Execute query with explain analyze to get query plan
   #echo "Execute query with explain analyze to get query plan"
   #sudo -u $PGUSER $PGBINDIR/psql -h /tmp -p $PGPORT -d $DB_NAME <"$BASEDIR/$fa" >analyze.txt
@@ -77,7 +76,7 @@ for i in $(seq 16 22); do
         break
       fi
       echo $line >>log.out
-      for child in $(ps o pid= -U psafayen); do
+      for child in $(ps o pid= -U victoryang00); do
         line=$(ps auxh -q $child)
         if [ "$line" == "" ]; then
           continue
@@ -89,15 +88,17 @@ for i in $(seq 16 22); do
         break
       fi
     done
-    
+
     if [[ $count == 2 ]]; then
       sleep 10
       export CURRENT_QUIRY=$ii
-      restart_drop_caches
       awk 'BEGIN { maxvsz=0; maxrss=0; count=0; sum=0; sum1=0; } \
       { if ($5>maxvsz) {maxvsz=$5}; if ($6>maxrss) {maxrss=$6}; sum=sum+$6; count=count+1; sum1=sum1+$5; }\
-      END { print maxvsz "," sum1/count "," maxrss "," sum/count; }' log.out >>/scratchNVME/pg-tpch/results/SF100/SF100-1.csv
+      END { print maxvsz "," sum1/count "," maxrss "," sum/count; }' log.out >>/scratchNVME/pg-tpch/results/SF100/SF100.csv
       rm log.out
+      sudo -u $PGUSER $PGBINDIR/pg_ctl stop -D $PGDATADIR
+      sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+
       break
     fi
   done

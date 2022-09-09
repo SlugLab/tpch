@@ -58,7 +58,8 @@ restart_drop_caches() {
   sudo -u $PGUSER $PGBINDIR/pg_ctl stop -D $PGDATADIR
   sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
   #sudo -u $PGUSER perf c2c record -F 60000 -a  $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT &
-  54
+
+  sudo -u $PGUSER perf stat -C 8-15 --all-user -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm taskset -c 8-15 $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT >>/scratchNVME/pg-tpch/results/SF100/SF100-$CURRENT_QUIRY-stat.txt 2>&1 &
   #perf stat -C 0-7 --all-user -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey > $5-$6-c2c-stat.txt 2>&1 &
   PGPID=$!
 
