@@ -21,25 +21,11 @@ result=np.zeros((5,7,22))
 N=100
 
 
-def plot_TS_expect(*name):  
-    plt.figure(figsize=(16, 9))
-    for i in range(0,4):
-        print(i)
-        plt.figure(figsize=(16, 9))
-        for j in [6,5,4,3,2,1,0]:
-            scaled_y = result[i][j]
-            scaled_x =queue_list
-            plt.bar(scaled_x, scaled_y,label=memory[j])
-        plt.legend(loc='upper left')
-        plt.title("The graph for scaled "+name[i])
-        plt.xlabel("queries")
-        plt.ylabel("memory")
-        plt.savefig(name[i]+".pdf", format='pdf')
-        plt.close()
+def plot_TS_expect(*name):
     i=4
     plt.figure(figsize=(16, 9))
     plt.ylim([0,2000])
-    for j in range(0,7):
+    for j in range(0,22):
         scaled_y = result[i][j]
         scaled_x =queue_list
         plt.bar(scaled_x, scaled_y,label=memory[j])
