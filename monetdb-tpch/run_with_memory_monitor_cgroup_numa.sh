@@ -3,18 +3,26 @@ first_arg="$1"
 shift
 echo First argument: "$first_arg"
 echo Remaining arguments: "$@"
+
+second_arg="$1"
+shift
+echo First argument: "$second_arg"
+echo Remaining arguments: "$@"
 # set -m
 
-taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey &
+# taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey &
+
 pid1=$!
-echo $pid1
-sleep 5
-sudo -u root sh -c "echo $pid1 > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs"
-sudo -u root sh -c "echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes"
+sudo -u root sh -c "echo $pid1 > /mnt/my_cgroups/memory/cgroup.procs"
+sudo -u root sh -c "echo $(($first_arg * 1024 * 1024 * 1024)) > /mnt/my_cgroups/memory/memory.limit_in_bytes"
+sudo -u root sh -c "echo $pid1 > /mnt/my_cgroups/cpusets/cgroup.procs"
+sudo -u root sh -c "echo 0,1 > /mnt/my_cgroups/cpusets/cpuset.mems"
+sudo -u root sh -c "echo $(($second_arg)) > /mnt/my_cgroups/cpusets/cpuset.cpus"
+echo $(($second_arg))  /mnt/my_cgroups/cpusets/cpuset.cpus
 
 sleep 1
-# ../wss.pl -s 0 $pid1 0.2 > $5-$6-wss-$first_arg.txt 2>&1 &
-# pid2=$!
+numastat -p $pid1 > $5-$6-numastat-$first_arg.txt 2>&1 &
+pid2=$!
 count=0
 ### Draw graph!!!!
 while true; do
@@ -25,8 +33,6 @@ while true; do
     pid=$!
     count=$(($count + 1))
 
-    # echo $pid > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs
-    # echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes
     while true; do
         sleep 0.005
         if ! ps -p $pid >/dev/null; then

@@ -7,14 +7,12 @@ echo Remaining arguments: "$@"
 
 taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_key=/home/victoryang00/bak/$5/$5/.vaultkey &
 pid1=$!
-echo $pid1
-sleep 5
 sudo -u root sh -c "echo $pid1 > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs"
 sudo -u root sh -c "echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes"
 
 sleep 1
-# ../wss.pl -s 0 $pid1 0.2 > $5-$6-wss-$first_arg.txt 2>&1 &
-# pid2=$!
+/opt/intel/oneapi/vtune/latest/bin64/vtune -collect uarch-exploration -target-pid $pid1 -r $6-$first_arg-uarch &
+pid2=$!
 count=0
 ### Draw graph!!!!
 while true; do
@@ -25,8 +23,6 @@ while true; do
     pid=$!
     count=$(($count + 1))
 
-    # echo $pid > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs
-    # echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes
     while true; do
         sleep 0.005
         if ! ps -p $pid >/dev/null; then
@@ -39,7 +35,6 @@ while true; do
                 # sleep 0.5
                 # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15
                 echo  kill -INT $pid2
-
                 kill -INT $pid2
                 rm -rf /home/victoryang00/bak/*/*/.gdk_lock
                 # sleep 20
