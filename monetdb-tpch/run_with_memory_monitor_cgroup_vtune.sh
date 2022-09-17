@@ -11,7 +11,7 @@ sudo -u root sh -c "echo $pid1 > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs"
 sudo -u root sh -c "echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes"
 
 sleep 1
-/opt/intel/oneapi/vtune/latest/bin64/vtune -collect uarch-exploration -target-pid $pid1 -r $6-$first_arg-uarch &
+/opt/intel/oneapi/vtune/latest/bin64/vtune -collect uarch-exploration -target-pid $pid1 -r $6-$first_arg-uarch 2>&1 | tee $6-$first_arg-uarch.txt &
 pid2=$!
 count=0
 ### Draw graph!!!!
