@@ -15,11 +15,12 @@ taskset -c 0-7 mserver5 --dbpath=/home/victoryang00/bak/$5/$5 --set monet_vault_
 pid1=$!
 sudo -u root sh -c "echo $pid1 > /sys/fs/cgroup/memory/numa/cgroup.procs"
 sudo -u root sh -c "echo $(($first_arg * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/numa/memory.limit_in_bytes"
-sudo -u root sh -c "echo $pid1 > /sys/fs/cgroup/cpuset/numa/cgroup.procs "
-sudo -u root sh -c "echo 0-1 > /sys/fs/cgroup/cpuset/numa/cpuset.mems"
-sudo -u root sh -c "echo $second_arg > /sys/fs/cgroup/cpuset/numa/cpuset.cpus"
+# sudo -u root sh -c "echo $pid1 > /sys/fs/cgroup/cpuset/numa/cgroup.procs "
+# sudo -u root sh -c "echo 0-1 > /sys/fs/cgroup/cpuset/numa/cpuset.mems"
+# sudo -u root sh -c "echo $second_arg > /sys/fs/cgroup/cpuset/numa/cpuset.cpus"
 
-echo $(($second_arg))  /mnt/my_cgroups/cpusets/cpuset.cpus
+
+# echo $(($second_arg))  /mnt/my_cgroups/cpusets/cpuset.cpus
 
 count=0
 ### Draw graph!!!!
