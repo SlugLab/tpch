@@ -10,11 +10,11 @@ from sympy import print_glsl
 
 style.use('ggplot')
 
-s = '{0}.sql-{1}-uarch.txt'
-memory = [64, 8, 2]
+s = 'SF-100-{0}.sql-numastat-{1}-{2}.txt'
+memory = [6,8,10,12]
 query = range(1, 23)
-formated_file_list = [s.format("{:0>2d}".format(j), i)
-                      for i in memory for j in query]
+formated_file_list = [s.format("{:0>2d}".format(j), i,(idx+1)*0.5)
+                      for idx,i in enumerate(memory) for j in query]
 metrics_list=["memory_bandwidth", "memory_latency",
                "core_bound", "memory_bound", "DRAM_bound","frontend_bound","bad_speculation","backend_bound"]
 queue_list = ["q01", "q02", "q03", "q04", "q05", "q06", "q07", "q08", "q09", "q10",
@@ -22,4 +22,29 @@ queue_list = ["q01", "q02", "q03", "q04", "q05", "q06", "q07", "q08", "q09", "q1
 result = np.zeros((8, 22, 3))
 N = 100
 
-for file in
+def draw_graph():
+    for file in formated_file_list:
+        tmp_line1 = []
+        tmp_line2 = []
+        tmp_time = []
+        count = 0
+        file_graph = str(file).replace(".txt", "")
+        with open(file, 'r') as f:
+            for line in f:
+                if line.startswith("Total"):
+                    tmp_line1.append(float(line[20:35].strip()))
+                    tmp_line2.append(float(line[36:50].strip())+float(line[20:35].strip()))
+                    tmp_time.append(count *0.005)
+                    count+=1
+        # print(tmp_line1)
+        # print(tmp_time)
+        plt.legend(loc='upper left')
+        plt.plot(tmp_time, tmp_line1, label="local")
+        plt.plot(tmp_time, tmp_line2, label="remote")
+        plt.title("The graph for scaled "+file_graph)
+        plt.xlabel("time")
+        plt.ylabel("allocation (GB)")
+        plt.savefig(file_graph+".pdf", format='pdf')
+        plt.close()
+
+draw_graph()
