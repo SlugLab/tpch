@@ -1,0 +1,194 @@
+vtune: Warning: To profile kernel modules during the session, make sure they are available in the /lib/modules/kernel_version/ location.
+vtune: Collection started. To stop the collection, either press CTRL-C or enter from another console window: vtune -r /scratchNVME/pg-tpch/perfdata-100GB/q14/14-2-uarch -command stop.
+vtune: Collection detached.
+vtune: Collection stopped.
+vtune: Using result path `/scratchNVME/pg-tpch/perfdata-100GB/q14/14-2-uarch'
+vtune: Executing actions  0 %                                                  vtune: Executing actions  0 % Finalizing results                               vtune: Executing actions  0 % Finalizing the result                            vtune: Executing actions  0 % Clearing the database                            vtune: Executing actions  7 % Clearing the database                            vtune: Executing actions  7 % Loading raw data to the database                 vtune: Executing actions  7 % Loading 'systemcollector-2424218-ares.sc' file   vtune: Executing actions 12 % Loading 'systemcollector-2424218-ares.sc' file   vtune: Executing actions 12 % Loading 'system-wide.perf' file                  vtune: Executing actions 12 % Updating precomputed scalar metrics              vtune: Executing actions 14 % Updating precomputed scalar metrics              vtune: Executing actions 14 % Processing profile metrics and debug information vtune: Executing actions 19 % Processing profile metrics and debug information vtune: Executing actions 19 % Setting data model parameters                    vtune: Executing actions 19 % Resolving module symbols                         vtune: Executing actions 19 % Resolving information for `nvme.ko'              vtune: Executing actions 19 % Resolving information for `nvme-core.ko'         vtune: Executing actions 19 % Resolving information for `nf_conntrack.ko'      vtune: Executing actions 19 % Resolving information for `libc.so.6'            
+vtune: Warning: Cannot locate debugging information for file `/lib/modules/5.15.0-47-generic/kernel/drivers/nvme/host/nvme-core.ko'.
+vtune: Warning: Cannot locate debugging information for file `/lib/modules/5.15.0-47-generic/kernel/drivers/nvme/host/nvme.ko'.
+vtune: Warning: Cannot read load addresses of sections from `/sys/module/nvme-core/sections'. This may affect the correctness of symbol resolution for `/lib/modules/5.15.0-47-generic/kernel/drivers/nvme/host/nvme-core.ko'. Make sure this directory exists and all files in this directory have read permissions.
+vtune: Warning: Cannot read load addresses of sections from `/sys/module/nvme/sections'. This may affect the correctness of symbol resolution for `/lib/modules/5.15.0-47-generic/kernel/drivers/nvme/host/nvme.ko'. Make sure this directory exists and all files in this directory have read permissions.
+vtune: Warning: Cannot locate debugging information for file `/lib/modules/5.15.0-47-generic/kernel/net/netfilter/nf_conntrack.ko'.
+vtune: Warning: Cannot read load addresses of sections from `/sys/module/nf_conntrack/sections'. This may affect the correctness of symbol resolution for `/lib/modules/5.15.0-47-generic/kernel/net/netfilter/nf_conntrack.ko'. Make sure this directory exists and all files in this directory have read permissions.
+vtune: Executing actions 20 % Resolving information for `libc.so.6'            vtune: Executing actions 21 % Resolving information for `libc.so.6'            
+vtune: Warning: Cannot locate file `vmlinux'.
+vtune: Executing actions 21 % Resolving information for `vmlinux'              vtune: Executing actions 21 % Resolving information for `postgres'             
+vtune: Warning: Cannot locate debugging information for the Linux kernel. Source-level analysis will not be possible. Function-level analysis will be limited to kernel symbol tables. See the Enabling Linux Kernel Analysis topic in the product online help for instructions.
+vtune: Executing actions 22 % Resolving information for `postgres'             vtune: Executing actions 22 % Resolving bottom user stack information          vtune: Executing actions 23 % Resolving bottom user stack information          vtune: Executing actions 23 % Resolving thread name information                vtune: Executing actions 24 % Resolving thread name information                vtune: Executing actions 24 % Resolving call target names for dynamic code     vtune: Executing actions 25 % Resolving call target names for dynamic code     vtune: Executing actions 25 % Resolving interrupt name information             vtune: Executing actions 26 % Resolving interrupt name information             vtune: Executing actions 26 % Processing profile metrics and debug information vtune: Executing actions 27 % Processing profile metrics and debug information vtune: Executing actions 28 % Processing profile metrics and debug information vtune: Executing actions 29 % Processing profile metrics and debug information vtune: Executing actions 30 % Processing profile metrics and debug information vtune: Executing actions 30 % Setting data model parameters                    vtune: Executing actions 30 % Precomputing frequently used data                vtune: Executing actions 30 % Precomputing frequently used data                vtune: Executing actions 31 % Precomputing frequently used data                vtune: Executing actions 32 % Precomputing frequently used data                vtune: Executing actions 33 % Precomputing frequently used data                vtune: Executing actions 34 % Precomputing frequently used data                vtune: Executing actions 35 % Precomputing frequently used data                vtune: Executing actions 36 % Precomputing frequently used data                vtune: Executing actions 36 % Updating precomputed scalar metrics              vtune: Executing actions 37 % Updating precomputed scalar metrics              vtune: Executing actions 37 % Discarding redundant overtime data               vtune: Executing actions 39 % Discarding redundant overtime data               vtune: Executing actions 39 % Saving the result                                vtune: Executing actions 41 % Saving the result                                vtune: Executing actions 42 % Saving the result                                vtune: Executing actions 49 % Saving the result                                vtune: Executing actions 50 % Saving the result                                vtune: Executing actions 50 % Generating a report                              vtune: Executing actions 50 % Setting data model parameters                    vtune: Executing actions 75 % Setting data model parameters                    vtune: Executing actions 75 % Generating a report                              Elapsed Time: 70.788s
+    Clockticks: 78,060,000,000
+    Instructions Retired: 106,560,000,000
+    CPI Rate: 0.733
+    Retiring: 34.6% of Pipeline Slots
+        Light Operations: 32.1% of Pipeline Slots
+        Heavy Operations: 2.5% of Pipeline Slots
+            Microcode Sequencer: 2.5% of Pipeline Slots
+                Assists: 0.0% of Pipeline Slots
+                CISC: 2.5% of Pipeline Slots
+    Front-End Bound: 8.2% of Pipeline Slots
+        Front-End Latency: 0.0% of Pipeline Slots
+            ICache Misses: 2.1% of Clockticks
+            ITLB Overhead: 0.3% of Clockticks
+            Branch Resteers: 2.3% of Clockticks
+            DSB Switches: 1.4% of Clockticks
+            Length Changing Prefixes: 0.0% of Clockticks
+            MS Switches: 2.1% of Clockticks
+        Front-End Bandwidth: 8.2% of Pipeline Slots
+            Front-End Bandwidth MITE: 8.4% of Pipeline Slots
+            Front-End Bandwidth DSB: 3.7% of Pipeline Slots
+            (Info) DSB Coverage: 58.6%
+    Bad Speculation: 3.9% of Pipeline Slots
+        Branch Mispredict: 3.9% of Pipeline Slots
+        Machine Clears: 0.0% of Pipeline Slots
+    Back-End Bound: 53.3% of Pipeline Slots
+     | A significant portion of pipeline slots are remaining empty. When
+     | operations take too long in the back-end, they introduce bubbles in the
+     | pipeline that ultimately cause fewer pipeline slots containing useful
+     | work to be retired per cycle than the machine is capable to support. This
+     | opportunity cost results in slower execution. Long-latency operations
+     | like divides and memory operations can cause this, as can too many
+     | operations being directed to a single execution port (for example, more
+     | multiply operations arriving in the back-end per cycle than the execution
+     | unit can support).
+     |
+        Memory Bound: 33.9% of Pipeline Slots
+         | The metric value is high. This can indicate that the significant
+         | fraction of execution pipeline slots could be stalled due to demand
+         | memory load and stores. Use Memory Access analysis to have the metric
+         | breakdown by memory hierarchy, memory bandwidth information,
+         | correlation by memory objects.
+         |
+            L1 Bound: 7.5% of Clockticks
+                DTLB Overhead: 11.8% of Clockticks
+                Loads Blocked by Store Forwarding: 1.6% of Clockticks
+                Lock Latency: 0.1% of Clockticks
+                Split Loads: 0.0% of Clockticks
+                4K Aliasing: 0.6% of Clockticks
+                FB Full: 63.0% of Clockticks
+            L2 Bound: 1.4% of Clockticks
+            L3 Bound: 5.4% of Clockticks
+             | This metric shows how often CPU was stalled on L3 cache, or
+             | contended with a sibling Core. Avoiding cache misses (L2
+             | misses/L3 hits) improves the latency and increases performance.
+             |
+                Contested Accesses: 0.0% of Clockticks
+                Data Sharing: 0.0% of Clockticks
+                L3 Latency: 2.6% of Clockticks
+                 | This metric shows a fraction of cycles with demand load
+                 | accesses that hit the L3 cache under unloaded scenarios
+                 | (possibly L3 latency limited). Avoiding private cache misses
+                 | (i.e. L2 misses/L3 hits) will improve the latency, reduce
+                 | contention with sibling physical cores and increase
+                 | performance. Note the value of this node may overlap with its
+                 | siblings.
+                 |
+                SQ Full: 0.0% of Clockticks
+                 | This metric measures fraction of cycles where the Super Queue
+                 | (SQ) was full taking into account all request-types and both
+                 | hardware SMT threads. The Super Queue is used for requests to
+                 | access the L2 cache or to go out to the Uncore.
+                 |
+            DRAM Bound: 15.0% of Clockticks
+             | This metric shows how often CPU was stalled on the main memory
+             | (DRAM). Caching typically improves the latency and increases
+             | performance.
+             |
+                Memory Bandwidth: 1.4% of Clockticks
+                 | Issue: A significant fraction of cycles was stalled due to
+                 | approaching bandwidth limits of the main memory (DRAM).
+                 | 
+                 | Tips: Improve data accesses to reduce cacheline transfers
+                 | from/to memory using these possible techniques:
+                 |     - Consume all bytes of each cacheline before it is
+                 |       evicted (for example, reorder structure elements and
+                 |       split non-hot ones).
+                 |     - Merge compute-limited and bandwidth-limited loops.
+                 |     - Use NUMA optimizations on a multi-socket system.
+                 | 
+                 | Note: software prefetches do not help a bandwidth-limited
+                 | application.
+                 |
+                Memory Latency: 69.2% of Clockticks
+                 | Issue: A significant fraction of cycles was stalled due to
+                 | the latency of the main memory (DRAM).
+                 | 
+                 | Tips: Improve data accesses or interleave them with compute
+                 | using such possible techniques as data layout re-structuring
+                 | or software prefetches (through the compiler).
+                 |
+                    Local DRAM: 5.1% of Clockticks
+                    Remote DRAM: 0.0% of Clockticks
+                    Remote Cache: 0.0% of Clockticks
+            Store Bound: 14.3% of Clockticks
+                Store Latency: 11.3% of Clockticks
+                False Sharing: 0.0% of Clockticks
+                Split Stores: 0.0% of Clockticks
+                DTLB Store Overhead: 1.1% of Clockticks
+        Core Bound: 19.5% of Pipeline Slots
+         | This metric represents how much Core non-memory issues were of a
+         | bottleneck. Shortage in hardware compute resources, or dependencies
+         | software's instructions are both categorized under Core Bound. Hence
+         | it may indicate the machine ran out of an OOO resources, certain
+         | execution units are overloaded or dependencies in program's data- or
+         | instruction- flow are limiting the performance (e.g. FP-chained long-
+         | latency arithmetic operations).
+         |
+            Divider: 0.0% of Clockticks
+            Port Utilization: 25.0% of Clockticks
+             | Issue: A significant fraction of cycles was stalled due to Core
+             | non-divider-related issues.
+             | 
+             | Tips: Use vectorization to reduce pressure on the execution ports
+             | as multiple elements are calculated with same uOp.
+             |
+                Cycles of 0 Ports Utilized: 42.1% of Clockticks
+                 | CPU executed no uOps on any execution port during a
+                 | significant fraction of cycles. Long-latency instructions
+                 | like divides may contribute to this issue. Check the Assembly
+                 | view and Appendix C in the Optimization Guide to identify
+                 | instructions with 5 or more cycles latency.
+                 |
+                Cycles of 1 Port Utilized: 12.2% of Clockticks
+                Cycles of 2 Ports Utilized: 15.2% of Clockticks
+                Cycles of 3+ Ports Utilized: 29.9% of Clockticks
+                    ALU Operation Utilization: 21.1% of Clockticks
+                        Port 0: 18.4% of Clockticks
+                        Port 1: 16.2% of Clockticks
+                        Port 5: 17.6% of Clockticks
+                        Port 6: 32.2% of Clockticks
+                    Load Operation Utilization: 19.0% of Clockticks
+                        Port 2: 23.8% of Clockticks
+                        Port 3: 22.8% of Clockticks
+                    Store Operation Utilization: 20.3% of Clockticks
+                        Port 4: 20.3% of Clockticks
+                        Port 7: 11.8% of Clockticks
+    Average CPU Frequency: 3.054 GHz
+    Total Thread Count: 8
+    Paused Time: 0s
+Effective CPU Utilization: 2.3%
+ | The metric value is low, which may signal a poor logical CPU cores
+ | utilization caused by load imbalance, threading runtime overhead, contended
+ | synchronization, or thread/process underutilization. Explore sub-metrics to
+ | estimate the efficiency of MPI and OpenMP parallelism or run the Locks and
+ | Waits analysis to identify parallel bottlenecks for other parallel runtimes.
+ |
+    Average Effective CPU Utilization: 0.361 out of 16
+Collection and Platform Info
+    Operating System: 5.15.0-47-generic DISTRIB_ID=Ubuntu DISTRIB_RELEASE=22.04 DISTRIB_CODENAME=jammy DISTRIB_DESCRIPTION="Ubuntu 22.04.1 LTS"
+    Computer Name: ares
+    Result Size: 14.6 MB 
+    Collection start time: 18:00:14 18/09/2022 UTC
+    Collection stop time: 18:01:26 18/09/2022 UTC
+    Collector Type: Driverless Perf system-wide sampling
+    CPU
+        Name: Intel(R) Xeon(R) E5/E7 v3 Processor code named Haswell
+        Frequency: 2.400 GHz
+        Logical CPU Count: 16
+        Cache Allocation Technology
+            Level 2 capability: not detected
+            Level 3 capability: not detected
+
+If you want to skip descriptions of detected performance issues in the report,
+enter: vtune -report summary -report-knob show-issues=false -r <my_result_dir>.
+Alternatively, you may view the report in the csv format: vtune -report
+<report_name> -format=csv.
+vtune: Executing actions 100 % Generating a report                             vtune: Executing actions 100 % done                                            

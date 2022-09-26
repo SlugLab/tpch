@@ -1,4 +1,26 @@
-LOG:  database system was shut down at 2022-09-08 13:32:46 PDT
+LOG:  database system was shut down at 2022-09-26 10:56:45 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  server process (PID 1688383) was terminated by signal 9: Killed
+DETAIL:  Failed process was running: select
+		sum(l_extendedprice * l_discount) as revenue
+	from
+		lineitem
+	where
+		l_shipdate >= date '1997-01-01'
+		and l_shipdate < date '1997-01-01' + interval '1' year
+		and l_discount between 0.04 - 0.01 and 0.04 + 0.01
+		and l_quantity < 25;
+LOG:  terminating any other active server processes
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+LOG:  all server processes terminated; reinitializing
+LOG:  database system was interrupted; last known up at 2022-09-26 10:57:13 PDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  invalid record length at 3A/3B66CE18: wanted 24, got 0
+LOG:  redo is not required
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -7,13 +29,3 @@ LOG:  aborting any active transactions
 LOG:  autovacuum launcher shutting down
 LOG:  shutting down
 LOG:  database system is shut down
-
- Performance counter stats for 'CPU(s) 8-15':
-
-           317,370      mem_load_uops_l3_hit_retired.xsnp_hit                                     (50.00%)
-           238,685      mem_load_uops_l3_hit_retired.xsnp_miss                                     (50.00%)
-       851,324,655      mem_load_uops_l3_hit_retired.xsnp_none                                     (50.00%)
-           302,746      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (50.00%)
-
-     437.680403822 seconds time elapsed
-

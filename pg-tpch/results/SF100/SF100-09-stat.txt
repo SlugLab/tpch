@@ -1,4 +1,49 @@
-LOG:  database system was shut down at 2022-09-08 14:23:16 PDT
+LOG:  database system was shut down at 2022-09-24 12:36:19 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  server process (PID 198727) was terminated by signal 9: Killed
+DETAIL:  Failed process was running: select
+		nation,
+		o_year,
+		sum(amount) as sum_profit
+	from
+		(
+			select
+				n_name as nation,
+				extract(year from o_orderdate) as o_year,
+				l_extendedprice * (1 - l_discount) - ps_supplycost * l_quantity as amount
+			from
+				part,
+				supplier,
+				lineitem,
+				partsupp,
+				orders,
+				nation
+			where
+				s_suppkey = l_suppkey
+				and ps_suppkey = l_suppkey
+				and ps_partkey = l_partkey
+				and p_partkey = l_partkey
+				and o_orderkey = l_orderkey
+				and s_nationkey = n_nationkey
+				and p_name like '%forest%'
+		) as profit
+	group by
+		nation,
+		o_year
+	order by
+		nation,
+		o_year desc;
+LOG:  terminating any other active server processes
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+LOG:  all server processes terminated; reinitializing
+LOG:  database system was interrupted; last known up at 2022-09-24 12:36:21 PDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  invalid record length at 3A/3B5F9448: wanted 24, got 0
+LOG:  redo is not required
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -7,13 +52,3 @@ LOG:  aborting any active transactions
 LOG:  autovacuum launcher shutting down
 LOG:  shutting down
 LOG:  database system is shut down
-
- Performance counter stats for 'CPU(s) 8-15':
-
-         1,305,944      mem_load_uops_l3_hit_retired.xsnp_hit                                     (50.00%)
-         2,739,410      mem_load_uops_l3_hit_retired.xsnp_miss                                     (50.00%)
-     2,969,586,333      mem_load_uops_l3_hit_retired.xsnp_none                                     (50.00%)
-           671,184      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (50.00%)
-
-    1901.355668031 seconds time elapsed
-

@@ -1,4 +1,61 @@
-LOG:  database system was shut down at 2022-09-08 11:56:25 PDT
+LOG:  database system was shut down at 2022-09-24 11:02:19 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  server process (PID 86773) was terminated by signal 9: Killed
+DETAIL:  Failed process was running: select
+		s_acctbal,
+		s_name,
+		n_name,
+		p_partkey,
+		p_mfgr,
+		s_address,
+		s_phone,
+		s_comment
+	from
+		part,
+		supplier,
+		partsupp,
+		nation,
+		region
+	where
+		p_partkey = ps_partkey
+		and s_suppkey = ps_suppkey
+		and p_size = 33
+		and p_type like '%STEEL'
+		and s_nationkey = n_nationkey
+		and n_regionkey = r_regionkey
+		and r_name = 'ASIA'
+		and ps_supplycost = (
+			select
+				min(ps_supplycost)
+			from
+				partsupp,
+				supplier,
+				nation,
+				region
+			where
+				p_partkey = ps_partkey
+				and s_suppkey = ps_suppkey
+				and s_nationkey = n_nationkey
+				and n_regionkey = r_regionkey
+				and r_name = 'ASIA'
+		)
+	order by
+		s_acctbal desc,
+		n_name,
+		s_name,
+		p_partkey
+	LIMIT 100;
+LOG:  terminating any other active server processes
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+LOG:  all server processes terminated; reinitializing
+LOG:  database system was interrupted; last known up at 2022-09-24 11:02:21 PDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  invalid record length at 3A/3B5F7D70: wanted 24, got 0
+LOG:  redo is not required
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -7,13 +64,3 @@ LOG:  aborting any active transactions
 LOG:  autovacuum launcher shutting down
 LOG:  shutting down
 LOG:  database system is shut down
-
- Performance counter stats for 'CPU(s) 8-15':
-
-           286,699      mem_load_uops_l3_hit_retired.xsnp_hit                                     (50.00%)
-           438,914      mem_load_uops_l3_hit_retired.xsnp_miss                                     (50.00%)
-       237,845,081      mem_load_uops_l3_hit_retired.xsnp_none                                     (50.00%)
-           219,275      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (50.00%)
-
-     111.019882472 seconds time elapsed
-

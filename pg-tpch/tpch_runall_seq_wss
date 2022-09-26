@@ -1,0 +1,166 @@
+#!/bin/bash
+
+###
+# This script runs all the queries individually
+#   * 1) Gather execution time using '/usr/bin/time'
+#   * 2) Collect data with perf to generate callgraph
+#   * 3) Collect a set of basic statistics, again using perf. For now we obtain
+#     the default given by perf, but this can be modified later to extract
+#     statistics of interest to us.
+###
+
+BASEDIR=$(dirname "$0")
+BASEDIR=$(
+  cd "$BASEDIR"
+  pwd
+)
+. "$BASEDIR/pgtpch_defaults"
+
+# Set up a custom directory for this set of runs
+PERFDATADIR="$PERFDATADIR-${SCALE}GB"
+if [ $# -gt 0 ]; then
+  PERFDATADIR="$PERFDATADIR-$1"
+fi
+
+perf_set_kernel_params
+
+for i in $(seq 2 2); do
+for h in $(seq 4 4); do
+  echo "Running query: $i"
+  # perf c2c record -F 60000 -a sleep 1000 &
+  # pid2=$!
+  ii=$(printf "%02d" $i)
+  dir="$PERFDATADIR/q${ii}"
+  mkdir -p $dir
+  cd "$dir"
+  chmod 777 .
+  # Start a new instance of Postgres
+  #sudo -u $PGUSER perf c2c record -F 60000 -a
+#  echo perf stat -C 8-15 --all-user -e mem_load_uops_l3_hit_retired.xsnp_hit,mem_load_uops_l3_hit_retired.xsnp_miss,mem_load_uops_l3_hit_retired.xsnp_none,mem_load_uops_l3_hit_retired.xsnp_hitm taskset -c 8-15 $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT /scratchNVME/pg-tpch/results/SF100/SF100-$ii-stat.txt 
+  # taskset -c 8-15 
+  # $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT &#>/scratchNVME/pg-tpch/results/SF100/SF100-$ii-stat.txt 2>&1 &
+  taskset -c 8-15 $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT >/scratchNVME/pg-tpch/results/SF100/SF100-$ii-stat.txt 2>&1 &
+  # echo taskset -c 8-15 $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT >/scratchNVME/pg-tpch/results/SF100/SF100-$ii-stat.txt
+  # echo taskset -c 8-15 $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT 
+  # sudo -u $PGUSER gdbserver :1234 taskset -c 8-15 $PGBINDIR/postgres -D "$PGDATADIR" -p $PGPORT >/scratchNVME/pg-tpch/results/SF100/SF100-$ii-stat.txt 2>&1 &
+  PGPID=$!
+  p=2
+  echo $PGPID
+  sudo -u root sh -c "echo $PGPID > /sys/fs/cgroup/memory/my_cgroup/cgroup.procs"
+  sudo -u root sh -c "echo $(((($p ** $h)) * 1024 * 1024 * 1024)) > /sys/fs/cgroup/memory/my_cgroup/memory.limit_in_bytes"
+  #echo $(pwd)  
+  sudo /scratchNVME/pg-tpch/wss.pl -C $PGPID 0.2 > $ii-wss-$(($p ** $h)).txt 2>&1 &
+  pid1=$1
+
+  while ! $PGBINDIR/pg_ctl status -D $PGDATADIR | grep "server is running" -q; do
+    echo "Waiting for the Postgres server to start"
+    sleep 1
+  done
+
+  # wait for it to finish starting
+  sleep 5
+  echo "Postgres running, pid $PGPID"
+
+  f="queries/q$ii.sql"
+  fe="queries/q$ii.explain.sql"
+  fa="queries/q$ii.analyze.sql"
+
+  ### Execute query with explain analyze to get query plan
+  #echo "Execute query with explain analyze to get query plan"
+  #sudo -u $PGUSER $PGBINDIR/psql -h /tmp -p $PGPORT -d $DB_NAME <"$BASEDIR/$fa" >analyze.txt
+  # restart_drop_caches
+
+  ### Get execution time without perf
+  #/usr/bin/time -f '%e\n%Uuser %Ssystem %Eelapsed %PCPU (%Xtext+%Ddata %Mmax)k'\
+  # sudo -u $PGUSER $PGBINDIR/psql -h /tmp -p $PGPORT -d $DB_NAME <"$BASEDIR/$f" 2> exectime.txt
+  #restart_drop_caches
+
+  ### Collect data with perf to generate callgraph
+  count=0
+  while true; do
+    sudo -u $PGUSER $PGBINDIR/psql -h /tmp -p $PGPORT -d $DB_NAME <"$BASEDIR/$f" &
+    # sudo -u $PGUSER gdbserver :1235 $PGBINDIR/psql -h /tmp -p $PGPORT -d $DB_NAME <"$BASEDIR/$f" &
+
+    pid=$!
+    echo "client start with PID" $pid " count" $count
+    count=$(($count + 1))
+    times=0
+    while true; do
+      # line=$(ps auxh -q $PGPID)
+      # if [ "$line" == "" ]; then
+      #   break
+      # fi
+      # echo $line >>log.out
+      # for child in $(ps o pid= -U victoryang00); do
+      #   line=$(ps auxh -q $child)
+      #   if [ "$line" == "" ]; then
+      #     continue
+      #   fi
+      #   echo $line >>log.out
+      # done
+      times=$(($times + 1))
+      sleep 0.1
+      if ! ps -p $pid >/dev/null; then
+        break
+      fi
+      if [[ $times == 40000 ]]; then
+        kill -INT $pid1
+        kill -INT $pid
+        break
+      fi
+    done
+
+    if [[ $count == 1 ]]; then
+      sleep 10
+      # export CURRENT_QUIRY=$ii
+      # awk 'BEGIN { maxvsz=0; maxrss=0; count=0; sum=0; sum1=0; } \
+      # { if ($5>maxvsz) {maxvsz=$5}; if ($6>maxrss) {maxrss=$6}; sum=sum+$6; count=count+1; sum1=sum1+$5; }\
+      # END { print maxvsz "," sum1/count "," maxrss "," sum/count; }' log.out >>/scratchNVME/pg-tpch/results/SF100/SF100.csv
+      # rm log.out
+      $PGBINDIR/pg_ctl stop -D $PGDATADIR
+      sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+      kill -INT $pid1
+      break
+    fi
+  done
+
+  ### Collect basic stats with perf
+  # echo "Collect basic stats with perf"
+  # sudo -u $PGUSER perf stat -a -C 2 -B --log-fd 2 -- $PGBINDIR/psql -h /tmp -p $PGPORT -d $DB_NAME <"$BASEDIR/$f" 2>stats.txt
+  # restart_drop_caches
+
+  # sudo chown $USER:$USER *
+  chmod 775 .
+  cd - >/dev/null
+done
+done
+
+# rm -f $PERFDATADIR/all-breakdown.csv
+# Generate callgraph
+# for i in $(seq 1 22); do
+#   ii=$(printf "%02d" $i)
+#   dir="$PERFDATADIR/q${ii}"
+#   mkdir -p $dir
+#   cd "$dir"
+
+#   cgf="../q${ii}-callgraph.pdf"
+#   echo "Creating the call graph: $cgf"
+#   perf script | python "$BASEDIR/gprof2dot.py" -f perf | dot -Tpdf -o $cgf &
+
+#   # Statistics collection
+#   perf script | python "$BASEDIR/gprof2dot.py" -f perf | python "$BASEDIR/collect_stats.py" $i >q${ii}-breakdown.csv
+#   if [ ! -f ../all-breakdown.csv ]; then
+#     head -n 1 q${ii}-breakdown.csv >../all-breakdown.csv
+#   fi
+#   tail -n 1 q${ii}-breakdown.csv >>../all-breakdown.csv
+
+#   cd - >/dev/null
+# done
+
+# Stop the server
+$PGBINDIR/pg_ctl stop -D $PGDATADIR
+
+# Wait for all pending jobs to finish.
+# for p in $(jobs -p); do
+#   wait $p
+# done

@@ -5,6 +5,7 @@ from scipy import stats
 from time import time
 from matplotlib import style
 import matplotlib.pyplot as plt
+import mpld3
 from statistics import mean
 import csv
 from sympy import print_glsl
@@ -35,7 +36,8 @@ def plot_TS_expect(*name):
         plt.title("The graph for scaled "+name[i])
         plt.xlabel("quries")
         plt.ylabel("time")
-        plt.savefig(name[i]+".pdf", format='pdf')
+        # plt.savefig(name[i]+".pdf", format='pdf')
+        mpld3.save_html(plt, name[i]+".html")
         plt.close()
 
 

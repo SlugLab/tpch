@@ -1,4 +1,52 @@
-LOG:  database system was shut down at 2022-09-08 16:02:47 PDT
+LOG:  database system was shut down at 2022-09-24 14:42:12 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  server process (PID 348062) was terminated by signal 9: Killed
+DETAIL:  Failed process was running: select
+		sum(l_extendedprice* (1 - l_discount)) as revenue
+	from
+		lineitem,
+		part
+	where
+		(
+			p_partkey = l_partkey
+			and p_brand = 'Brand#25'
+			and p_container in ('SM CASE', 'SM BOX', 'SM PACK', 'SM PKG')
+			and l_quantity >= 10 and l_quantity <= 10 + 10
+			and p_size between 1 and 5
+			and l_shipmode in ('AIR', 'AIR REG')
+			and l_shipinstruct = 'DELIVER IN PERSON'
+		)
+		or
+		(
+			p_partkey = l_partkey
+			and p_brand = 'Brand#21'
+			and p_container in ('MED BAG', 'MED BOX', 'MED PKG', 'MED PACK')
+			and l_quantity >= 12 and l_quantity <= 12 + 10
+			and p_size between 1 and 10
+			and l_shipmode in ('AIR', 'AIR REG')
+			and l_shipinstruct = 'DELIVER IN PERSON'
+		)
+		or
+		(
+			p_partkey = l_partkey
+			and p_brand = 'Brand#31'
+			and p_container in ('LG CASE', 'LG BOX', 'LG PACK', 'LG PKG')
+			and l_quantity >= 23 and l_quantity <= 23 + 10
+			and p_size between 1 and 15
+			and l_shipmode in ('AIR', 'AIR REG')
+			and l_shipinstruct = 'DELIVER IN PERSON'
+		);
+LOG:  terminating any other active server processes
+WARNING:  terminating connection because of crash of another server process
+DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+LOG:  all server processes terminated; reinitializing
+LOG:  database system was interrupted; last known up at 2022-09-24 14:42:14 PDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  invalid record length at 3A/3B66C408: wanted 24, got 0
+LOG:  redo is not required
 LOG:  MultiXact member wraparound protections are now enabled
 LOG:  database system is ready to accept connections
 LOG:  autovacuum launcher started
@@ -7,13 +55,3 @@ LOG:  aborting any active transactions
 LOG:  autovacuum launcher shutting down
 LOG:  shutting down
 LOG:  database system is shut down
-
- Performance counter stats for 'CPU(s) 8-15':
-
-            61,638      mem_load_uops_l3_hit_retired.xsnp_hit                                     (50.00%)
-           220,045      mem_load_uops_l3_hit_retired.xsnp_miss                                     (50.00%)
-        86,778,088      mem_load_uops_l3_hit_retired.xsnp_none                                     (50.00%)
-            18,244      mem_load_uops_l3_hit_retired.xsnp_hitm                                     (50.00%)
-
-     140.449572556 seconds time elapsed
-
