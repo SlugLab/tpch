@@ -34,8 +34,8 @@ while true; do
                 # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15
                 # sleep 0.5
                 # ps -aux | grep ucevent.py | grep -v grep | awk '{print $2}' | xargs kill -15
-                echo  kill -INT $pid2
-                kill -INT $pid2
+                # echo  kill -INT $pid2
+                # kill -INT $pid2
                 rm -rf /home/victoryang00/bak/*/*/.gdk_lock
                 # sleep 20
                 # perf report -NN -c pid,iaddr --full-symbols --stdio \

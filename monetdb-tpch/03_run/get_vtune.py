@@ -17,15 +17,15 @@ query = range(1, 23)
 formated_file_list = [s.format("{:0>2d}".format(j), i)
                       for i in memory for j in query]
 metrics_list=["memory_bandwidth", "memory_latency",
-               "core_bound", "memory_bound", "DRAM_bound"]
+               "core_bound", "memory_bound", "DRAM_bound","frontend_bound","bad_speculation","backend_bound"]
 queue_list = ["q01", "q02", "q03", "q04", "q05", "q06", "q07", "q08", "q09", "q10",
               "q11", "q12", "q13", "q14", "q15", "q16", "q17", "q18", "q19", "q20", "q21", "q22", ]
-result = np.zeros((5, 22, 3))
+result = np.zeros((8, 22, 3))
 N = 100
 
 
 def plot_TS_expect(*name):
-    for i in range(0, 5):
+    for i in range(0, 8):
         plt.figure(figsize=(16, 9))
         for j in range(0, 22):
             scaled_y = result[i][j]
@@ -47,6 +47,8 @@ def get_data(file_list):
         tmp_core = []
         tmp_memory = []
         tmp_dram = []
+        tmp_front = []
+        tmp_bad_spec = []
         print(file_idx % 22)
         print(file_idx//22)
         for line in f:
@@ -70,7 +72,7 @@ def get_data(file_list):
                     print(err)
             if line.__contains__("Memory Bound:"):
                 try:
-                    tmp_memory.append(float(line[23:27].replace(
+                    tmp_memory.append(float(line[22:27].replace(
                         ":", "").replace("%", "").strip()))
                 except Exception as err:
                     print(err)
@@ -80,6 +82,25 @@ def get_data(file_list):
                         ":", "").replace("%", "").strip()))
                 except Exception as err:
                     print(err)
+            if line.__contains__("Front-End Bound:"):
+                try:
+                    tmp_front.append(float(line[22:26].replace(
+                        ":", "").replace("%", "").strip()))
+                except Exception as err:
+                    print(err)
+            if line.__contains__("Bad Speculation:"):
+                try:
+                    tmp_front.append(float(line[21:25].replace(
+                        ":", "").replace("%", "").strip()))
+                except Exception as err:
+                    print(err)
+            if line.__contains__("Back-End Bound:"):
+                try:
+                    tmp_bad_spec.append(float(line[21:25].replace(
+                        ":", "").replace("%", "").strip()))
+                except Exception as err:
+                    print(err)
+            
         print(tmp_bandwidth)
         if (len(tmp_bandwidth)) == 0:
             result[0][file_idx % 22][file_idx//22] = 0.
@@ -87,12 +108,16 @@ def get_data(file_list):
             result[2][file_idx % 22][file_idx//22] = 0.
             result[3][file_idx % 22][file_idx//22] = 0.
             result[4][file_idx % 22][file_idx//22] = 0.
+            result[5][file_idx % 22][file_idx//22] = 0.
+            result[6][file_idx % 22][file_idx//22] = 0.
         else:
             result[0][file_idx % 22][file_idx//22] = tmp_bandwidth[0]
             result[1][file_idx % 22][file_idx//22] = tmp_latency[0]
             result[2][file_idx % 22][file_idx//22] = tmp_core[0]
             result[3][file_idx % 22][file_idx//22] = tmp_memory[0]
             result[4][file_idx % 22][file_idx//22] = tmp_dram[0]
+            result[5][file_idx % 22][file_idx//22] = tmp_front [0]
+            result[6][file_idx % 22][file_idx//22] = tmp_bad_spec [0]
 
     return result
 
