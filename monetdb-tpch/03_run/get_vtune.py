@@ -4,8 +4,17 @@ import numpy as np
 from scipy import stats
 from time import time
 from matplotlib import style
-import matplotlib.pyplot as plt
-import mpld3
+# import matplotlib.pyplot as plt
+# import mpld3
+#%%
+import plotly.express as px
+import pandas as pd
+# df = px.data.gapminder().query("continent=='Oceania'")
+# print(df)
+# fig = px.line(df, x="year", y="lifeExp", color='country')
+# fig.show()
+
+#%%
 from statistics import mean
 import csv
 from sympy import print_glsl
@@ -25,22 +34,29 @@ result = np.zeros((8, 22, 3))
 N = 100
 
 
+# def plot_TS_expect(*name):
+#     for i in range(0, 8):
+#         # plt.figure(figsize=(16, 9))
+#         for j in range(0, 22):
+#             scaled_y = result[i][j]
+#             scaled_x = [64, 8, 2]
+#             df = pd.DataFrame(scaled_x, scaled_y, queue_list[j]
+#         # plt.legend(loc='upper left')
+#         px.title("The graph for scaled "+name[i])
+#         px.xlabel("quries")
+#         plt.ylabel("time")
+#         plt.savefig(name[i]+".html", format='html')
+#         # mpld3.save_html(plt, name[i]+".html")
+#         plt.close()
+
 def plot_TS_expect(*name):
     for i in range(0, 8):
-        plt.figure(figsize=(16, 9))
-        for j in range(0, 22):
-            scaled_y = result[i][j]
-            scaled_x = [64, 8, 2]
-            plt.plot(scaled_x, scaled_y, label=queue_list[j])
-        plt.legend(loc='upper left')
-        plt.title("The graph for scaled "+name[i])
-        plt.xlabel("quries")
-        plt.ylabel("time")
-        # plt.savefig(name[i]+".pdf", format='pdf')
-        mpld3.save_html(plt, name[i]+".html")
-        plt.close()
-
-
+        df = pd.DataFrame(result[i].transpose(),columns=queue_list,index=[64,8,2])
+        # print(df)
+        fig =px.line(df, title="The graph for scaled "+name[i])
+        fig.write_html(name[i]+".html")
+    
+    
 def get_data(file_list):
     for file_idx, file in enumerate(file_list):
         f = open(file, "r").readlines()
